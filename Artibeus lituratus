@@ -1,1 +1,4 @@
+1. Set Directories: 
 
+mkdir –p /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
