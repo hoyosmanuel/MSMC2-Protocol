@@ -30,7 +30,8 @@ Colected in Belize: Orange Walk District, Lamanai
 
 
 
-# Unpack the SRA
+### 3. Unpack the SRA
+```
 fasterq-dump -e 1O SRR28746557.sra
 fasterq-dump -e 1O SRR28746558.sra
 fasterq-dump -e 1O SRR28746559.sra
@@ -39,20 +40,26 @@ fasterq-dump -e 1O SRR28746561.sra
 fasterq-dump -e 1O SRR28746562.sra
 fasterq-dump -e 1O SRR28746563.sra
 fasterq-dump -e 1O SRR28746564.sra
+```
 
-
-3. Index the reference genome: 
+### 4. Index the reference genome: 
+```
 module load gcc/9.2.0
 module load bwa/0.7.17
 module load samtools/1.11
- 
+```
+```
 bwa index aLit_REF.fasta
+```
 
-
-4. Start the mappability mask:
+### 5. Start the mappability mask:
+Create a file named mask_1.sh
+```
 cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
 nano mask_1.sh
-
+```
+Once the file is created paste this inside (with your own routes of course)
+```
 #!/bin/bash
 #SBATCH --job-name=maskAL
 #SBATCH --output=%x.%j.out
@@ -65,10 +72,13 @@ nano mask_1.sh
 module load gcc/9.2.0
 module load bwa/0.7.17
 module load samtools/1.11
+
 # Enter into the directory
 cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+
 # Put the Splitfa software into the path
 export PATH=/lustre/scratch/mhoyosro/project1/MSMC2/seqbility-20091110:${PATH}
+
 # Break down the reference genome in kmers
 mkdir x_files
 splitfa aLit_REF.fasta | split -l 20000000
@@ -76,37 +86,47 @@ mv x* x_files
 cd x_files
 cat x* >> ../REF_splitted
 cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+
 # Aling the spplited reference to the reference itself
-bwa aln -t 64 -R 1000000 -O 3 -E 3  aLit_REF.fasta  REF_splitted  >  REF_splitted.sai 
+bwa aln -t 64 -R 1000000 -O 3 -E 3  aLit_REF.fasta  REF_splitted  >  REF_splitted.sai
+
 # Pass the sai file to a sam file
-BWA_THREAD=64 bwa samse -f REF_splitted.sam  aLit_REF.fasta REF_splitted.sai  REF_splitted 
+BWA_THREAD=64 bwa samse -f REF_splitted.sam  aLit_REF.fasta REF_splitted.sai  REF_splitted
+
 # Create the RawMask
 perl /lustre/scratch/mhoyosro/project1/MSMC2/seqbility-20091110/gen_raw_mask.pl  REF_splitted.sam  > aLit_rawmask.fa
+
 # Create the Mask
 /lustre/scratch/mhoyosro/project1/MSMC2/seqbility-20091110/gen_mask -l 35 -r 0.5 aLit_rawmask.fa  > aLit_mask.fa
+```
 
 
-
-5. Finish the Mask of the reference genome script: 
-
-# Prepare the mask creator
-
+### 6. Finish the Mask of the reference genome script: 
+Prepare the mask creator
+```
 cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
 mkdir masks
-
+```
 Inside of the folder /lustre/scratch/mhoyosro/project1/MSMC2/msmc-tools-master there is a python script called makeMappabilityMask.py
 
 Edit line 26 to be: 
+```
 with open("/lustre/scratch/mhoyosro/project1/artibeus_lituratus/aLit_mask.fa", "r") as f:
-
+```
 Edit line 30 to be: 
+```
 mask = MaskGenerator("/lustre/scratch/mhoyosro/project1/artibeus_lituratus/masks/{}.mask.bed.gz".format(chr), chr)
+```
 
-
-# Run the mask creator
+### 7. Run the mask creator
+Create a file named mask_2.sh
+```
 cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
 nano mask_2.sh
+```
+Inside of mask_2.sh paste this:
 
+```
 #!/bin/bash
 #SBATCH --job-name=rawmask
 #SBATCH --output=%x.%j.out
@@ -118,13 +138,16 @@ nano mask_2.sh
 . ~/conda/etc/profile.d/conda.sh
 conda activate py2
 python /lustre/scratch/mhoyosro/project1/MSMC2/msmc-tools-master/makeMappabilityMask.py
+```
 
 
-
-6. Map  the samples against the reference genome: 
-
+### 8. Map  the samples against the reference genome: 
+Create a executable named mapping.sh
+```
 nano mapping.sh
-
+```
+Inside of mapping.sh paste this:
+```
 #!/bin/bash
 #SBATCH --job-name=mapping
 #SBATCH --output=%x.%j.out
@@ -148,13 +171,17 @@ BWA_THREAD=64 bwa mem -t 64 aLit_REF.fasta SRR28746561.fastq >  SRR28746561_se.s
 BWA_THREAD=64 bwa mem -t 64 aLit_REF.fasta SRR28746562.fastq >  SRR28746562_se.sam
 BWA_THREAD=64 bwa mem -t 64 aLit_REF.fasta SRR28746563.fastq >  SRR28746563_se.sam
 BWA_THREAD=64 bwa mem -t 64 aLit_REF.fasta SRR28746564.fastq >  SRR28746564_se.sam
+```
 
 
+### 9. Convert to bam and index (being the previous job 12638832)
+Create a executable named bamming.sh
 
-7. Convert to bam and index (being the previous job 12638832)
-
+```
 nano bamming.sh
- 
+```
+Inside of bamming.sh paste this:
+```
 #!/bin/bash
 #SBATCH --dependency=afterok:13504203
 #SBATCH --job-name=bamming
@@ -202,5 +229,332 @@ OMP_NUM_THREADS=64 samtools index SRR28746563.sorted.bam
 OMP_NUM_THREADS=64 samtools view -bS SRR28746564_se.sam > SRR28746564.bam
 OMP_NUM_THREADS=64 samtools sort -o SRR28746564.sorted.bam SRR28746564.bam
 OMP_NUM_THREADS=64 samtools index SRR28746564.sorted.bam
-![image](https://github.com/user-attachments/assets/21ea1db6-2ef0-4e1b-8e63-6f2db1f391ee)
+```
+
+
+### 10. Create the regions file to calculate the Coverage for each sample. 
+This is how much of the reference chromosome is covered in each sample
+```
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+head -n 312 SRR28746557_se.sam > regions.txt
+```
+In the previous step I just knew that 312 was the number corresponding to the header, and that header looks like this:
+
+```
+@SQ SN:CM076298.2 LN:244258554
+@SQ SN:CM076299.2 LN:215877553
+@SQ SN:CM076300.2 LN:194994341
+@SQ SN:CM076301.2 LN:181848277
+@SQ SN:CM076302.2 LN:180695055
+@SQ SN:CM076303.2 LN:164085409
+@SQ SN:JBAWUR020000030.1 LN:454483
+@SQ SN:CM076304.2 LN:152729198
+@SQ SN:CM076305.2 LN:143578626
+@SQ SN:CM076306.2 LN:130245037
+@SQ SN:CM076307.2 LN:119658639
+@SQ SN:CM076308.2 LN:110184339
+@SQ SN:CM076309.2 LN:98439770
+@SQ SN:CM076310.2 LN:61143233
+@SQ SN:CM076311.2 LN:57377168
+@SQ SN:JBAWUR020000129.1 LN:78022
+@SQ SN:JBAWUR020000131.1 LN:76151
+@SQ SN:JBAWUR020000133.1 LN:73955
+@SQ SN:JBAWUR020000135.1 LN:72029
+@SQ SN:JBAWUR020000138.1 LN:70286
+@SQ SN:JBAWUR020000140.1 LN:69543
+@SQ SN:JBAWUR020000142.1 LN:67376
+@SQ SN:JBAWUR020000145.1 LN:66763
+@SQ SN:JBAWUR020000146.1 LN:66703
+@SQ SN:JBAWUR020000148.1 LN:66134
+@SQ SN:JBAWUR020000150.1 LN:64272
+@SQ SN:JBAWUR020000151.1 LN:63268
+@SQ SN:JBAWUR020000154.1 LN:62539
+@SQ SN:JBAWUR0200001.....
+```
+And so on, this header is not complete here because it's too long.
+Now, From that table create the following in notepad++, BB or any other program (spaces are tabulations)
+
+```
+CM076298.2 0 244258554 Chromosome_1
+CM076299.2 0 215877553 Chromosome_2
+CM076300.2 0 194994341 Chromosome_3
+CM076301.2 0 181848277 Chromosome_4
+CM076302.2 0 180695055 Chromosome_5
+CM076303.2 0 164085409 Chromosome_6_1
+JBAWUR020000030.1 0 454483 Chromosome_6_2
+CM076304.2 0 152729198 Chromosome_7
+CM076305.2 0 143578626 Chromosome_8
+CM076306.2 0 130245037 Chromosome_9
+CM076307.2 0 119658639 Chromosome_10
+CM076308.2 0 110184339 Chromosome_11
+CM076309.2 0 98439770 Chromosome_12
+CM076310.2 0 61143233 Chromosome_13
+CM076311.2 0 57377168 Chromosome_14
+JBAWUR020000129.1 0 78022 Chromosome_15
+JBAWUR020000131.1 0 76151 Chromosome_16
+JBAWUR020000133.1 0 73955 Chromosome_17
+JBAWUR020000135.1 0 ........
+```
+
+
+save the tables as artibeuslit_regions.bed (Like this):
+```
+/lustre/scratch/mhoyosro/project1/artibeus_lituratus/artibeuslit_regions.bed
+```
+
+
+### 11. Create the coverage files for each sample. 
+This is how much of the reference chromosome is covered in each sample
+Create the excutable depth.sh
+```
+nano depth.sh
+```
+Inside of the file paste the following:
+```
+#!/bin/bash
+#SBATCH --job-name=depth
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=32
+
+# Load the necessary modules
+module load gcc/9.2.0
+module load bwa/0.7.17
+module load samtools/1.11
+
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus/
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746557.sorted.bam > SRR28746557_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746557_covered.bed -r CM076298.2  SRR28746557.sorted.bam > depth_SRR28746557
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746558.sorted.bam > SRR28746558_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746558_covered.bed -r CM076298.2  SRR28746558.sorted.bam > depth_SRR28746558
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746559.sorted.bam > SRR28746559_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746559_covered.bed -r CM076298.2  SRR28746559.sorted.bam > depth_SRR28746559
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746560.sorted.bam > SRR28746560_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746560_covered.bed -r CM076298.2  SRR28746560.sorted.bam > depth_SRR28746560
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746561.sorted.bam > SRR28746561_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746561_covered.bed -r CM076298.2  SRR28746561.sorted.bam > depth_SRR28746561
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746562.sorted.bam > SRR28746562_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746562_covered.bed -r CM076298.2  SRR28746562.sorted.bam > depth_SRR28746562
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746563.sorted.bam > SRR28746563_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746563_covered.bed -r CM076298.2  SRR28746563.sorted.bam > depth_SRR28746563
+
+OMP_NUM_THREADS=64 samtools bedcov artibeuslit_regions.bed SRR28746564.sorted.bam > SRR28746564_covered.bed
+OMP_NUM_THREADS=64 samtools depth -b SRR28746564_covered.bed -r CM076298.2 SRR28746564.sorted.bam > depth_SRR28746564
+```
+
+
+### 12. Calculate DEPTH and at the same time generate the VCF and masks files.
+
+For each line in the file, sum the value in the third field, then print the total sum and divide it by the number of records
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746557
+```
+Result: 17.033
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746558
+```
+Result: 17.033
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746559
+```
+Result: 13.4812
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746560
+```
+Result: 13.4812
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746561
+```
+Result: 15.2252
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746562
+```
+Result: 15.2252
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746563
+```
+Result: 11.3628
+```
+awk '{sum += $3} END {print sum / NR}' depth_SRR28746564
+```
+Result: 11.3628
+
+
+
+### 13. Generate a pileup (mpileup) VCF and mask files from individual BAM files
+```
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus/
+```
+```
+mkdir  output_sample_557 output_sample_558 output_sample_559 output_sample_560 output_sample_561 output_sample_562 output_sample_563 output_sample_564
+```
+```
+mkdir masks2 && cd masks2 
+```
+```
+mkdir sample_557 sample_558 sample_559 sample_560 sample_561 sample_562 sample_563 sample_564 
+```
+Create the executable bamcaller.sh
+```
+nano bamcaller.sh
+```
+Inside of bamcaller.sh paste the following:
+
+```
+#!/bin/bash
+#SBATCH --job-name=mpileup
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+
+# List of values of the argument -r
+regions=("CM076298.2" "CM076299.2" "CM076300.2" "CM076301.2" "CM076302.2" "CM076303.2" "JBAWUR020000030.1" "CM076304.2" "CM076305.2" "CM076306.2" "CM076307.2" "CM076308.2" "CM076309.2" "CM076310.2" "CM076311.2" "JBAWUR020000129.1" "JBAWUR020000131.1" "JBAWUR020000133.1" "JBAWUR020000135.1" "JBAWUR020000138.1" "JBAWUR020000140.1" "JBAWUR020000142.1" "JBAWUR020000145.1" "JBAWUR020000146.1" "JBAWUR020000148.1" "JBAWUR020000150.1" "JBAWUR020000151.1" "JBAWUR020000154.1" "JBAWUR020000155.1" "JBAWUR020000157.1" "JBAWUR020000159.1" "JBAWUR020000161.1" "JBAWUR020000162.1" "JBAWUR020000163.1" "JBAWUR020000166.1" "JBAWUR020000168.1" "JBAWUR020000169.1" "JBAWUR020000171.1" "JBAWUR020000173.1" "JBAWUR020000174.1" "JBAWUR020000176.1" "JBAWUR020000177.1" "JBAWUR020000179.1" "JBAWUR020000181.1" "JBAWUR020000182.1" "JBAWUR020000184.1" "JBAWUR020000186.1" "JBAWUR020000187.1" "JBAWUR020000190.1" "JBAWUR020000189.1" "JBAWUR020000192.1" "JBAWUR020000193.1" "JBAWUR020000195.1" "JBAWUR020000196.1" "JBAWUR020000198.1" "JBAWUR020000199.1" "JBAWUR020000201.1" "JBAWUR020000202.1" "JBAWUR020000204.1" "JBAWUR020000205.1" "JBAWUR020000206.1" "JBAWUR020000208.1" "JBAWUR020000209.1" "JBAWUR020000211.1" "JBAWUR020000212.1" "JBAWUR020000214.1" "JBAWUR020000215.1" "JBAWUR020000216.1" "JBAWUR020000219.1" "JBAWUR020000220.1" "JBAWUR020000221.1" "JBAWUR020000223.1" "JBAWUR020000224.1" "JBAWUR020000225.1" "JBAWUR020000226.1" "JBAWUR020000227.1" "JBAWUR020000228.1" "JBAWUR020000230.1" "JBAWUR020000231.1" "JBAWUR020000233.1" "JBAWUR020000234.1" "JBAWUR020000235.1" "JBAWUR020000237.1" "JBAWUR020000238.1" "JBAWUR020000239.1" "JBAWUR020000240.1" "JBAWUR020000242.1" "JBAWUR020000243.1" "JBAWUR020000244.1" "JBAWUR020000246.1" "JBAWUR020000247.1" "JBAWUR020000248.1" "JBAWUR020000249.1" "JBAWUR020000251.1" "JBAWUR020000252.1" "JBAWUR020000253.1" "JBAWUR020000254.1" "JBAWUR020000255.1" "JBAWUR020000257.1" "JBAWUR020000258.1" "JBAWUR020000259.1" "JBAWUR020000261.1" "JBAWUR020000262.1" "JBAWUR020000263.1" "JBAWUR020000264.1" "JBAWUR020000266.1" "JBAWUR020000267.1" "JBAWUR020000268.1" "JBAWUR020000269.1" "JBAWUR020000270.1" "JBAWUR020000271.1" "JBAWUR020000273.1" "JBAWUR020000274.1" "JBAWUR020000275.1" "JBAWUR020000276.1" "JBAWUR020000278.1" "JBAWUR020000279.1" "JBAWUR020000280.1" "JBAWUR020000281.1" "JBAWUR020000282.1" "JBAWUR020000284.1" "JBAWUR020000285.1" "JBAWUR020000286.1" "JBAWUR020000287.1" "JBAWUR020000288.1" "JBAWUR020000290.1" "JBAWUR020000291.1" "JBAWUR020000292.1" "JBAWUR020000293.1" "JBAWUR020000294.1" "JBAWUR020000295.1" "JBAWUR020000297.1" "JBAWUR020000298.1" "JBAWUR020000299.1" "JBAWUR020000300.1" "JBAWUR020000301.1" "JBAWUR020000302.1" "JBAWUR020000304.1" "JBAWUR020000305.1" "JBAWUR020000306.1" "JBAWUR020000307.1" "JBAWUR020000308.1" "JBAWUR020000309.1" "JBAWUR020000310.1" "JBAWUR020000311.1" "JBAWUR020000022.1" "JBAWUR020000015.1" "JBAWUR020000016.1" "JBAWUR020000017.1" "JBAWUR020000018.1" "JBAWUR020000019.1" "JBAWUR020000020.1" "JBAWUR020000021.1" "JBAWUR020000023.1" "JBAWUR020000024.1" "JBAWUR020000025.1" "JBAWUR020000026.1" "JBAWUR020000027.1" "JBAWUR020000028.1" "JBAWUR020000029.1" "JBAWUR020000031.1" "JBAWUR020000032.1" "JBAWUR020000033.1" "JBAWUR020000035.1" "JBAWUR020000034.1" "JBAWUR020000036.1" "JBAWUR020000037.1" "JBAWUR020000038.1" "JBAWUR020000039.1" "JBAWUR020000040.1" "JBAWUR020000041.1" "JBAWUR020000042.1" "JBAWUR020000043.1" "JBAWUR020000044.1" "JBAWUR020000045.1" "JBAWUR020000046.1" "JBAWUR020000047.1" "JBAWUR020000048.1" "JBAWUR020000049.1" "JBAWUR020000050.1" "JBAWUR020000051.1" "JBAWUR020000052.1" "JBAWUR020000053.1" "JBAWUR020000054.1" "JBAWUR020000055.1" "JBAWUR020000056.1" "JBAWUR020000057.1" "JBAWUR020000058.1" "JBAWUR020000059.1" "JBAWUR020000060.1" "JBAWUR020000061.1" "JBAWUR020000062.1" "JBAWUR020000063.1" "JBAWUR020000064.1" "JBAWUR020000065.1" "JBAWUR020000066.1" "JBAWUR020000067.1" "JBAWUR020000068.1" "JBAWUR020000069.1" "JBAWUR020000070.1" "JBAWUR020000071.1" "JBAWUR020000072.1" "JBAWUR020000073.1" "JBAWUR020000074.1" "JBAWUR020000075.1" "JBAWUR020000076.1" "JBAWUR020000077.1" "JBAWUR020000078.1" "JBAWUR020000079.1" "JBAWUR020000080.1" "JBAWUR020000081.1" "JBAWUR020000082.1" "JBAWUR020000083.1" "JBAWUR020000084.1" "JBAWUR020000085.1" "JBAWUR020000086.1" "JBAWUR020000087.1" "JBAWUR020000088.1" "JBAWUR020000089.1" "JBAWUR020000090.1" "JBAWUR020000092.1" "JBAWUR020000093.1" "JBAWUR020000094.1" "JBAWUR020000095.1" "JBAWUR020000096.1" "JBAWUR020000097.1" "JBAWUR020000098.1" "JBAWUR020000100.1" "JBAWUR020000101.1" "JBAWUR020000102.1" "JBAWUR020000104.1" "JBAWUR020000105.1" "JBAWUR020000107.1" "JBAWUR020000108.1" "JBAWUR020000109.1" "JBAWUR020000111.1" "JBAWUR020000112.1" "JBAWUR020000114.1" "JBAWUR020000115.1" "JBAWUR020000117.1" "JBAWUR020000118.1" "JBAWUR020000120.1" "JBAWUR020000122.1" "JBAWUR020000123.1" "JBAWUR020000125.1" "JBAWUR020000127.1" "JBAWUR020000128.1" "JBAWUR020000130.1" "JBAWUR020000132.1" "JBAWUR020000134.1" "JBAWUR020000136.1" "JBAWUR020000137.1" "JBAWUR020000139.1" "JBAWUR020000141.1" "JBAWUR020000144.1" "JBAWUR020000143.1" "JBAWUR020000147.1" "JBAWUR020000149.1" "JBAWUR020000153.1" "JBAWUR020000152.1" "JBAWUR020000156.1" "JBAWUR020000158.1" "JBAWUR020000160.1" "JBAWUR020000164.1" "JBAWUR020000165.1" "JBAWUR020000167.1" "JBAWUR020000170.1" "JBAWUR020000172.1" "JBAWUR020000175.1" "JBAWUR020000178.1" "JBAWUR020000180.1" "JBAWUR020000183.1" "JBAWUR020000185.1" "JBAWUR020000188.1" "JBAWUR020000191.1" "JBAWUR020000194.1" "JBAWUR020000197.1" "JBAWUR020000200.1" "JBAWUR020000203.1" "JBAWUR020000207.1" "JBAWUR020000210.1" "JBAWUR020000213.1" "JBAWUR020000217.1" "JBAWUR020000218.1" "JBAWUR020000222.1" "JBAWUR020000229.1" "JBAWUR020000232.1" "JBAWUR020000236.1" "JBAWUR020000241.1" "JBAWUR020000245.1" "JBAWUR020000250.1" "JBAWUR020000256.1" "JBAWUR020000260.1" "JBAWUR020000265.1" "JBAWUR020000272.1" "JBAWUR020000277.1" "JBAWUR020000283.1" "JBAWUR020000289.1" "JBAWUR020000296.1" "JBAWUR020000303.1" "JBAWUR020000312.1" "JBAWUR020000091.1" "JBAWUR020000099.1" "JBAWUR020000103.1" "JBAWUR020000106.1" "JBAWUR020000110.1" "JBAWUR020000113.1" "JBAWUR020000116.1" "JBAWUR020000119.1" "JBAWUR020000121.1" "JBAWUR020000124.1" "JBAWUR020000126.1")
+
+# Route to the reference file
+reference="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/aLit_REF.fasta"
+
+# Options for samtools mpileup
+options="-B -q 20 -Q 20 -C 50 -u"
+
+# Depth 557
+DEPTH557=17.033
+# Depth 558
+DEPTH558=17.033
+# Depth 559
+DEPTH559=13.4812
+# Depth 560
+DEPTH560=13.4812
+# Depth 561
+DEPTH561=15.2252
+# Depth 562
+DEPTH562=15.2252
+# Depth 563
+DEPTH563=11.3628
+# Depth 564
+DEPTH564=11.3628
+
+# BAM557
+BAM557="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746557.sorted.bam"
+# BAM558
+BAM558="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746558.sorted.bam"  
+# BAM559
+BAM559="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746559.sorted.bam"  
+# BAM560
+BAM560="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746560.sorted.bam"  
+# BAM561
+BAM561="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746561.sorted.bam"  
+# BAM562
+BAM562="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746562.sorted.bam"  
+# BAM563
+BAM563="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746563.sorted.bam"  
+# BAM564
+BAM564="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/SRR28746564.sorted.bam"    
+
+# Bamcaller
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/msmc-tools-master/bamCaller.py"
+
+# Load all the modules 
+module load gcc/9.2.0
+module load bwa/0.7.17
+module load samtools/1.11
+module load bcftools/1.11
+
+#This is the runnig made on July 22th 2024
+
+for region in "${regions[@]}"; do
+OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM557 | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH557 masks2/sample_557/$region.mask.bed.gz  |  gzip -c  >  output_sample_557/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM558  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH558 masks2/sample_558/$region.mask.bed.gz  |  gzip -c  >  output_sample_558/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM559  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH559 masks2/sample_559/$region.mask.bed.gz  |  gzip -c  >  output_sample_559/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM560  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH560 masks2/sample_560/$region.mask.bed.gz  |  gzip -c  >  output_sample_560/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM561  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH561 masks2/sample_561/$region.mask.bed.gz  |  gzip -c  >  output_sample_561/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM562  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH562 masks2/sample_562/$region.mask.bed.gz  |  gzip -c  >  output_sample_562/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM563  | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH563 masks2/sample_563/$region.mask.bed.gz  |  gzip -c  >  output_sample_563/out.$region.vcf.gz
+done
+
+for region in "${regions[@]}"; do
+    OMP_NUM_THREADS=64 samtools mpileup $options -r $region -f $reference $BAM564 | OMP_NUM_THREADS=64 bcftools call -c -V indels |  OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'  |  python $TOOL $DEPTH564 masks2/sample_564/$region.mask.bed.gz  |  gzip -c  >  output_sample_564/out.$region.vcf.gz
+done
+```
+
+### 14. Build directories for the Multihetsep step 
+Multihetsep is the working horse of the MSMC2 software
+
+```
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus
+mkdir multihetsep557 multihetsep558 multihetsep559 multihetsep560 multihetsep561 multihetsep562 multihetsep563 multihetsep564
+```
+
+Create executables for each sample
+for multihet557.sh
+```
+nano multihet557.sh
+```
+Inside of multihet557.sh paste the following:
+
+```
+#!/bin/bash
+#SBATCH --job-name=mlthtsp557
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+
+cd /lustre/scratch/mhoyosro/project1/artibeus_lituratus/multihetsep557
+
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/msmc-tools-master/generate_multihetsep.py"
+# Mask of the reference genome
+MASKS="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/masks"
+# Masks resulting from mpileup
+NEGMASKS1="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/masks2/sample_557"
+# VCFs resulting from mpileup
+NEGMASKS2="/lustre/scratch/mhoyosro/project1/artibeus_lituratus/output_sample_557"
+
+scaffolds=("CM076298.2" "CM076299.2" "CM076300.2" "CM076301.2" "CM076302.2" "CM076303.2" "JBAWUR020000030.1" "CM076304.2" "CM076305.2" "CM076306.2" "CM076307.2" "CM076308.2" "CM076309.2" "CM076310.2" "CM076311.2" "JBAWUR020000129.1" "JBAWUR020000131.1" "JBAWUR020000133.1" "JBAWUR020000135.1" "JBAWUR020000138.1" "JBAWUR020000140.1" "JBAWUR020000142.1" "JBAWUR020000145.1" "JBAWUR020000146.1" "JBAWUR020000148.1" "JBAWUR020000150.1" "JBAWUR020000151.1" "JBAWUR020000154.1" "JBAWUR020000155.1" "JBAWUR020000157.1" "JBAWUR020000159.1" "JBAWUR020000161.1" "JBAWUR020000162.1" "JBAWUR020000163.1" "JBAWUR020000166.1" "JBAWUR020000168.1" "JBAWUR020000169.1" "JBAWUR020000171.1" "JBAWUR020000173.1" "JBAWUR020000174.1" "JBAWUR020000176.1" "JBAWUR020000177.1" "JBAWUR020000179.1" "JBAWUR020000181.1" "JBAWUR020000182.1" "JBAWUR020000184.1" "JBAWUR020000186.1" "JBAWUR020000187.1" "JBAWUR020000190.1" "JBAWUR020000189.1" "JBAWUR020000192.1" "JBAWUR020000193.1" "JBAWUR020000195.1" "JBAWUR020000196.1" "JBAWUR020000198.1" "JBAWUR020000199.1" "JBAWUR020000201.1" "JBAWUR020000202.1" "JBAWUR020000204.1" "JBAWUR020000205.1" "JBAWUR020000206.1" "JBAWUR020000208.1" "JBAWUR020000209.1" "JBAWUR020000211.1" "JBAWUR020000212.1" "JBAWUR020000214.1" "JBAWUR020000215.1" "JBAWUR020000216.1" "JBAWUR020000219.1" "JBAWUR020000220.1" "JBAWUR020000221.1" "JBAWUR020000223.1" "JBAWUR020000224.1" "JBAWUR020000225.1" "JBAWUR020000226.1" "JBAWUR020000227.1" "JBAWUR020000228.1" "JBAWUR020000230.1" "JBAWUR020000231.1" "JBAWUR020000233.1" "JBAWUR020000234.1" "JBAWUR020000235.1" "JBAWUR020000237.1" "JBAWUR020000238.1" "JBAWUR020000239.1" "JBAWUR020000240.1" "JBAWUR020000242.1" "JBAWUR020000243.1" "JBAWUR020000244.1" "JBAWUR020000246.1" "JBAWUR020000247.1" "JBAWUR020000248.1" "JBAWUR020000249.1" "JBAWUR020000251.1" "JBAWUR020000252.1" "JBAWUR020000253.1" "JBAWUR020000254.1" "JBAWUR020000255.1" "JBAWUR020000257.1" "JBAWUR020000258.1" "JBAWUR020000259.1" "JBAWUR020000261.1" "JBAWUR020000262.1" "JBAWUR020000263.1" "JBAWUR020000264.1" "JBAWUR020000266.1" "JBAWUR020000267.1" "JBAWUR020000268.1" "JBAWUR020000269.1" "JBAWUR020000270.1" "JBAWUR020000271.1" "JBAWUR020000273.1" "JBAWUR020000274.1" "JBAWUR020000275.1" "JBAWUR020000276.1" "JBAWUR020000278.1" "JBAWUR020000279.1" "JBAWUR020000280.1" "JBAWUR020000281.1" "JBAWUR020000282.1" "JBAWUR020000284.1" "JBAWUR020000285.1" "JBAWUR020000286.1" "JBAWUR020000287.1" "JBAWUR020000288.1" "JBAWUR020000290.1" "JBAWUR020000291.1" "JBAWUR020000292.1" "JBAWUR020000293.1" "JBAWUR020000294.1" "JBAWUR020000295.1" "JBAWUR020000297.1" "JBAWUR020000298.1" "JBAWUR020000299.1" "JBAWUR020000300.1" "JBAWUR020000301.1" "JBAWUR020000302.1" "JBAWUR020000304.1" "JBAWUR020000305.1" "JBAWUR020000306.1" "JBAWUR020000307.1" "JBAWUR020000308.1" "JBAWUR020000309.1" "JBAWUR020000310.1" "JBAWUR020000311.1" "JBAWUR020000022.1" "JBAWUR020000015.1" "JBAWUR020000016.1" "JBAWUR020000017.1" "JBAWUR020000018.1" "JBAWUR020000019.1" "JBAWUR020000020.1" "JBAWUR020000021.1" "JBAWUR020000023.1" "JBAWUR020000024.1" "JBAWUR020000025.1" "JBAWUR020000026.1" "JBAWUR020000027.1" "JBAWUR020000028.1" "JBAWUR020000029.1" "JBAWUR020000031.1" "JBAWUR020000032.1" "JBAWUR020000033.1" "JBAWUR020000035.1" "JBAWUR020000034.1" "JBAWUR020000036.1" "JBAWUR020000037.1" "JBAWUR020000038.1" "JBAWUR020000039.1" "JBAWUR020000040.1" "JBAWUR020000041.1" "JBAWUR020000042.1" "JBAWUR020000043.1" "JBAWUR020000044.1" "JBAWUR020000045.1" "JBAWUR020000046.1" "JBAWUR020000047.1" "JBAWUR020000048.1" "JBAWUR020000049.1" "JBAWUR020000050.1" "JBAWUR020000051.1" "JBAWUR020000052.1" "JBAWUR020000053.1" "JBAWUR020000054.1" "JBAWUR020000055.1" "JBAWUR020000056.1" "JBAWUR020000057.1" "JBAWUR020000058.1" "JBAWUR020000059.1" "JBAWUR020000060.1" "JBAWUR020000061.1" "JBAWUR020000062.1" "JBAWUR020000063.1" "JBAWUR020000064.1" "JBAWUR020000065.1" "JBAWUR020000066.1" "JBAWUR020000067.1" "JBAWUR020000068.1" "JBAWUR020000069.1" "JBAWUR020000070.1" "JBAWUR020000071.1" "JBAWUR020000072.1" "JBAWUR020000073.1" "JBAWUR020000074.1" "JBAWUR020000075.1" "JBAWUR020000076.1" "JBAWUR020000077.1" "JBAWUR020000078.1" "JBAWUR020000079.1" "JBAWUR020000080.1" "JBAWUR020000081.1" "JBAWUR020000082.1" "JBAWUR020000083.1" "JBAWUR020000084.1" "JBAWUR020000085.1" "JBAWUR020000086.1" "JBAWUR020000087.1" "JBAWUR020000088.1" "JBAWUR020000089.1" "JBAWUR020000090.1" "JBAWUR020000092.1" "JBAWUR020000093.1" "JBAWUR020000094.1" "JBAWUR020000095.1" "JBAWUR020000096.1" "JBAWUR020000097.1" "JBAWUR020000098.1" "JBAWUR020000100.1" "JBAWUR020000101.1" "JBAWUR020000102.1" "JBAWUR020000104.1" "JBAWUR020000105.1" "JBAWUR020000107.1" "JBAWUR020000108.1" "JBAWUR020000109.1" "JBAWUR020000111.1" "JBAWUR020000112.1" "JBAWUR020000114.1" "JBAWUR020000115.1" "JBAWUR020000117.1" "JBAWUR020000118.1" "JBAWUR020000120.1" "JBAWUR020000122.1" "JBAWUR020000123.1" "JBAWUR020000125.1" "JBAWUR020000127.1" "JBAWUR020000128.1" "JBAWUR020000130.1" "JBAWUR020000132.1" "JBAWUR020000134.1" "JBAWUR020000136.1" "JBAWUR020000137.1" "JBAWUR020000139.1" "JBAWUR020000141.1" "JBAWUR020000144.1" "JBAWUR020000143.1" "JBAWUR020000147.1" "JBAWUR020000149.1" "JBAWUR020000153.1" "JBAWUR020000152.1" "JBAWUR020000156.1" "JBAWUR020000158.1" "JBAWUR020000160.1" "JBAWUR020000164.1" "JBAWUR020000165.1" "JBAWUR020000167.1" "JBAWUR020000170.1" "JBAWUR020000172.1" "JBAWUR020000175.1" "JBAWUR020000178.1" "JBAWUR020000180.1" "JBAWUR020000183.1" "JBAWUR020000185.1" "JBAWUR020000188.1" "JBAWUR020000191.1" "JBAWUR020000194.1" "JBAWUR020000197.1" "JBAWUR020000200.1" "JBAWUR020000203.1" "JBAWUR020000207.1" "JBAWUR020000210.1" "JBAWUR020000213.1" "JBAWUR020000217.1" "JBAWUR020000218.1" "JBAWUR020000222.1" "JBAWUR020000229.1" "JBAWUR020000232.1" "JBAWUR020000236.1" "JBAWUR020000241.1" "JBAWUR020000245.1" "JBAWUR020000250.1" "JBAWUR020000256.1" "JBAWUR020000260.1" "JBAWUR020000265.1" "JBAWUR020000272.1" "JBAWUR020000277.1" "JBAWUR020000283.1" "JBAWUR020000289.1" "JBAWUR020000296.1" "JBAWUR020000303.1" "JBAWUR020000312.1" "JBAWUR020000091.1" "JBAWUR020000099.1" "JBAWUR020000103.1" "JBAWUR020000106.1" "JBAWUR020000110.1" "JBAWUR020000113.1" "JBAWUR020000116.1" "JBAWUR020000119.1" "JBAWUR020000121.1" "JBAWUR020000124.1" "JBAWUR020000126.1")
+
+for scaffold in "${scaffolds[@]}" 
+do 
+python $TOOL --mask=$NEGMASKS1/$scaffold.mask.bed.gz --mask=$MASKS/$scaffold.mask.bed.gz  $NEGMASKS2/out.$scaffold.vcf.gz > aLit557_$scaffold.txt
+done
+```
+
+
+
+
+
+
+
+
+
 
