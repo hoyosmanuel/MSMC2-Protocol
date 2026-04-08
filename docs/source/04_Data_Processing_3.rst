@@ -42,7 +42,7 @@ A) *Hipposideros larvatus*
  samtools view -b -q 20 -F 2308 ${sra}.sorted.bam > ${sra}.filtered.bam
  samtools index ${sra}.filtered.bam
 
-B) *Molossus molossus
+B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
