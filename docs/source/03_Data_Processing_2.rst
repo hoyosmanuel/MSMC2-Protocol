@@ -51,3 +51,35 @@ Finish the Mappability Masks of the Reference Genomes
 
 
 The original script: ``/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-master/makeMappabilityMask.py`` was adapted by modifying line 26 and line 30 so that the input mask file and output ``.bed.gz`` files point to the ``hLar`` directory.
+
+
+.. note::
+
+   Once all scripts for each species have been modified, we can proceed with the following command. 
+
+.. code-block:: python
+   cd /lustre/scratch/mhoyosro/project1/MSMC2
+   nano endr2.sh
+
+.. code-block:: python
+
+   #!/bin/bash
+   #SBATCH --job-name=endr2
+   #SBATCH --output=%x.%A_%a.out
+   #SBATCH --error=%x.%A_%a.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=12
+   #SBATCH --array=0-6
+
+   . ~/conda/etc/profile.d/conda.sh
+   conda activate py2
+
+   # Array con los nombres de las especies
+   SPECIES=(hLar mMol mMyo pDis pKuh rFer rAeg)
+
+   # Obtener la especie correspondiente a este índice del array
+   CURRENT_SPECIES=${SPECIES[$SLURM_ARRAY_TASK_ID]}
+
+   # Ejecutar el script para la especie actual
+   python /lustre/scratch/mhoyosro/project1/MSMC2/${CURRENT_SPECIES}/msmc-tools-master/makeMappabilityMask.py
