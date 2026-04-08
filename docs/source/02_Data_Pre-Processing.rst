@@ -219,3 +219,82 @@ D) Mask for *Phyllostomus discolor*
   # Create the Mask
   gen_mask -l 35 -r 0.5 pDis_genome_rawmask.fa > pDis.genome.mask.fa
 
+
+E) Mask for *Pipistrellus kuhlii*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  #!/bin/bash
+  #SBATCH --job-name=MASKR
+  #SBATCH --output=%x.%j.out
+  #SBATCH --error=%x.%j.err
+  #SBATCH --partition=nocona
+  #SBATCH --nodes=1
+  #SBATCH --ntasks=64
+
+  # Activate the environment
+  . /home/mhoyosro/conda/etc/profile.d/conda.sh
+  conda activate alineador
+  # Enter into the directory
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+  # Base directory
+  BASE_DIR="/lustre/scratch/mhoyosro/project1/GENOMES"
+  # Put the Splitfa software into the path
+  export PATH=/lustre/work/mhoyosro/software/seqbility/seqbility-20091110/:${PATH}
+  # Break down the reference genome in kmers
+  mkdir x_files
+  splitfa $BASE_DIR/mPipKuh1.2.pri.fa | split -l 20000000
+  mv x* x_files
+  cd x_files
+  cat x* >> ../pKuh_splitted
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+  # Aling the spplited reference to the Genome
+  bwa aln -t 64 -O 3 -E 3  $BASE_DIR/mPipKuh1.2.pri.fa  pKuh_splitted  >  pKuh_splitted.sai
+  # Pass the sai file to a sam file
+  bwa samse -f pKuh_splitted.sam  $BASE_DIR/mPipKuh1.2.pri.fa  pKuh_splitted.sai  pKuh_splitted
+  # Create the RawMask
+  perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  pKuh_splitted.sam   >  pKuh_genome_rawmask.fa
+  # Create the Mask
+  gen_mask -l 35 -r 0.5 pKuh_genome_rawmask.fa > pKuh.genome.mask.fa
+
+
+F) Mask for *Rhinolophus ferrumequinum*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  #!/bin/bash
+  #SBATCH --job-name=MASKR
+  #SBATCH --output=%x.%j.out
+  #SBATCH --error=%x.%j.err
+  #SBATCH --partition=nocona
+  #SBATCH --nodes=1
+  #SBATCH --ntasks=64
+
+  # Activate the environment
+  . /home/mhoyosro/conda/etc/profile.d/conda.sh
+  conda activate alineador
+  # Enter into the directory
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+  # Base directory
+  BASE_DIR="/lustre/scratch/mhoyosro/project1/GENOMES"
+  # Put the Splitfa software into the path
+  export PATH=/lustre/work/mhoyosro/software/seqbility/seqbility-20091110/:${PATH}
+  # Break down the reference genome in kmers
+  mkdir x_files
+  splitfa $BASE_DIR/mRhiFer1.5.pri.fa | split -l 20000000
+  mv x* x_files
+  cd x_files
+  cat x* >> ../rFer_splitted
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+  # Aling the spplited reference to the Genome
+  bwa aln -t 64 -O 3 -E 3  $BASE_DIR/mRhiFer1.5.pri.fa  rFer_splitted  >  rFer_splitted.sai
+  # Pass the sai file to a sam file
+  bwa samse -f rFer_splitted.sam  $BASE_DIR/mRhiFer1.5.pri.fa  rFer_splitted.sai  rFer_splitted
+  # Create the RawMask
+  perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  rFer_splitted.sam   >  rFer_genome_rawmask.fa
+  # Create the Mask
+  gen_mask -l 35 -r 0.5 rFer_genome_rawmask.fa > rFer.genome.mask.fa
+
+
