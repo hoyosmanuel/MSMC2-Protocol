@@ -1,4 +1,4 @@
-Alright, Let's run the actual things - PSMC
+The Mappability Mask
 ==============================================
 
 .. note::
@@ -6,8 +6,8 @@ Alright, Let's run the actual things - PSMC
  Read more about the practicality and implemntation on the GitHub page of the project. https://github.com/lh3/psmc
 
 
-A) Initial runs
-----------------
+1) Set directories
+--------------------
 
 .. code-block:: console
 
