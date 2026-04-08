@@ -12,11 +12,11 @@ Map the samples to the Reference Genomes
 A) Hipposideros larvatus
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
 nano hLar_mapper.sh
 
-.. code-block:: console
+.. code-block:: bash
 
 #!/bin/bash
 #SBATCH --job-name=hLarMPR
