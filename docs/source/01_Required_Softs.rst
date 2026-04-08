@@ -71,5 +71,6 @@ The required software was installed using conda from the bioconda and conda-forg
    # Configure the sratoolkit
    mkdir /lustre/scratch/mhoyosro/project1/genomes_SRA
    vdb-config -i
+
 Now, in the SRA Toolkit cache, set the following path: ``/lustre/scratch/mhoyosro/project1/genomes_SRA``
 
