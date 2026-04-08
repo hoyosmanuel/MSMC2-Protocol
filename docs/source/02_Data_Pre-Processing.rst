@@ -1,4 +1,4 @@
-The Mappability Mask
+The Mappability Masks
 ==============================================
 
 .. note::
