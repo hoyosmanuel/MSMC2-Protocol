@@ -58,8 +58,8 @@ The required software was installed using conda from the bioconda and conda-forg
    conda activate alineador
 
 
-5) Install sratoolkit
--------------------------------------
+5) Install sratoolkit and put it on the path
+--------------------------------------------
 
 .. code-block:: bash
 
