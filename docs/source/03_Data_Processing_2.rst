@@ -62,7 +62,7 @@ The original script: ``/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-m
    cd /lustre/scratch/mhoyosro/project1/MSMC2
    nano endr2.sh
 
-.. code-block:: python
+.. code-block:: bash
 
    #!/bin/bash
    #SBATCH --job-name=endr2
