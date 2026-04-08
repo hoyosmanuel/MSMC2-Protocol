@@ -27,8 +27,8 @@ Software installation and workspace setup
   done
 
 
-3) Install required software
-----------------------------
+3) Install required Conda environment
+-------------------------------------
 
 The required software was installed using conda from the bioconda and conda-forge channels.
 
