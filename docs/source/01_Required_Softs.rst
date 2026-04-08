@@ -22,6 +22,9 @@ Software installation and workspace setup
   unzip msmc-tools-master.zip
   rm msmc-tools-master.zip
   # Put one copy of the msmc-tools-master in each working folder
+  for directory in hLar mMol mMyo pDis pKuh rFer rAeg; do
+      cp -r msmc-tools-master "$directory/"
+  done
 
 
 3) Install required software
