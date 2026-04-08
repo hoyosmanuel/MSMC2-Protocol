@@ -1,6 +1,7 @@
 Software installation and workspace setup
 =========================================
 
+
 1) Set up working directories
 -----------------------------
 
@@ -27,7 +28,15 @@ Software installation and workspace setup
   done
 
 
-3) Install required Conda environment
+3) Create subdirectories 
+-----------------------------
+
+  for directory in hLar mMol mMyo pDis pKuh rFer rAeg; do 
+      mkdir -p /lustre/scratch/mhoyosro/project1/MSMC2/$directory/map_mask 
+  done
+
+
+4) Install required Conda environment
 -------------------------------------
 
 The required software was installed using conda from the bioconda and conda-forge channels.
