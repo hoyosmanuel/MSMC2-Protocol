@@ -4,7 +4,7 @@ Map the samples to the Reference Genomes
 1) MAP the PACBIO reads first
 -----------------------------
 
-A) Hipposideros larvatus
+A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
