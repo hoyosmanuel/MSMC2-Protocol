@@ -12,7 +12,7 @@ Software installation and workspace setup
    mkdir hLar mMol mMyo pDis pKuh rFer rAeg
 
 
-2) Set up working directories
+2) Get msmc-tools-master
 -----------------------------
 
 .. code-block:: bash
