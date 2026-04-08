@@ -28,12 +28,14 @@ Software installation and workspace setup
   done
 
 
-3) Create subdirectories 
------------------------------
+3) Create subdirectories
+------------------------
 
-  for directory in hLar mMol mMyo pDis pKuh rFer rAeg; do 
-      mkdir -p /lustre/scratch/mhoyosro/project1/MSMC2/$directory/map_mask 
-  done
+.. code-block:: bash
+
+   for directory in hLar mMol mMyo pDis pKuh rFer rAeg; do
+       mkdir -p /lustre/scratch/mhoyosro/project1/MSMC2/$directory/map_mask
+   done
 
 
 4) Install required Conda environment
