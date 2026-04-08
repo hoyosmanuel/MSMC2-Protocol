@@ -179,3 +179,43 @@ C) Mask for *Myotis myotis*
   perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  mMyo_splitted.sam   >  mMyo_genome_rawmask.fa
   # Create the Mask
   gen_mask -l 35 -r 0.5 mMyo_genome_rawmask.fa > mMyo.genome.mask.fa
+
+
+D) Mask for *Phyllostomus discolor*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  #!/bin/bash
+  #SBATCH --job-name=MASKR
+  #SBATCH --output=%x.%j.out
+  #SBATCH --error=%x.%j.err
+  #SBATCH --partition=nocona
+  #SBATCH --nodes=1
+  #SBATCH --ntasks=64
+
+  # Activate the environment
+  . /home/mhoyosro/conda/etc/profile.d/conda.sh
+  conda activate alineador
+  # Enter into the directory
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+  # Base directory
+  BASE_DIR="/lustre/scratch/mhoyosro/project1/GENOMES"
+  # Put the Splitfa software into the path
+  export PATH=/lustre/work/mhoyosro/software/seqbility/seqbility-20091110/:${PATH}
+  # Break down the reference genome in kmers
+  mkdir x_files
+  splitfa $BASE_DIR/mPhyDis1.3.pri.fa | split -l 20000000
+  mv x* x_files
+  cd x_files
+  cat x* >> ../pDis_splitted
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+  # Aling the spplited reference to the Genome
+  bwa aln -t 64 -O 3 -E 3  $BASE_DIR/mPhyDis1.3.pri.fa  pDis_splitted  >  pDis_splitted.sai
+  # Pass the sai file to a sam file
+  bwa samse -f pDis_splitted.sam  $BASE_DIR/mPhyDis1.3.pri.fa  pDis_splitted.sai  pDis_splitted
+  # Create the RawMask
+  perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  pDis_splitted.sam   >  pDis_genome_rawmask.fa
+  # Create the Mask
+  gen_mask -l 35 -r 0.5 pDis_genome_rawmask.fa > pDis.genome.mask.fa
+
