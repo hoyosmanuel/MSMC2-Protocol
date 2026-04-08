@@ -10,5 +10,5 @@ Pipeline bioinformático para inferencia demográfica usando MSMC2.
    introduccion
    instalacion
    pipeline
-   ../artibeus_lituratus
-   ../myotis_myotis
+   artibeus_lituratus
+   myotis_myotis
