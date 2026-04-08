@@ -67,3 +67,9 @@ The required software was installed using conda from the bioconda and conda-forg
    wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
    tar -zxvf sratoolkit.tar.gz
    export PATH=/lustre/work/mhoyosro/software/sratoolkit/bin:${PATH}
+   
+   # Configure the sratoolkit
+   mkdir /lustre/scratch/mhoyosro/project1/genomes_SRA
+   vdb-config -i
+Now, in the SRA Toolkit cache, set the following path: /lustre/scratch/mhoyosro/project1/genomes_SRA
+
