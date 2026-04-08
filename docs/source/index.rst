@@ -4,9 +4,6 @@ MSMC2 protocol
 Contents
 ========
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+See :doc:`00_Required_Softs`.
 
-   00_Required_Softs
-   01_Data_Pre-Processing
+See :doc:`01_Data_Pre-Processing`.
