@@ -1,5 +1,4 @@
-Instalación
-===========
+Introducción
+============
 
-Aquí irá la instalación del software y dependencias.
-
+Aquí irá la introucción de lo que pasa
