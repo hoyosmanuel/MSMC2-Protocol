@@ -279,7 +279,7 @@ E) Mask for *Pipistrellus kuhlii*
 
 
 F) Mask for *Rhinolophus ferrumequinum*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
