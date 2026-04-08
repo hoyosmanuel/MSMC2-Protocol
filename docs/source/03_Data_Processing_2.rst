@@ -50,4 +50,4 @@ Finish the Mappability Masks of the Reference Genomes
 
 
 
-The original script was adapted by modifying line 26 and line 30 so that the input mask file and output ``.bed.gz`` files point to the ``hLar`` directory.
+The original script: ``/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-master/makeMappabilityMask.py`` was adapted by modifying line 26 and line 30 so that the input mask file and output ``.bed.gz`` files point to the ``hLar`` directory.
