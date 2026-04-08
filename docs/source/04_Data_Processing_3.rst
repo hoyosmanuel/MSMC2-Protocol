@@ -247,7 +247,7 @@ G) *Rousettus aegyptiacus*
  #SBATCH --partition=nocona
  #SBATCH --nodes=1
  #SBATCH --ntasks=64
- #SBATCH --array=0-0   # 2 jobs, (one per SRA) 
+ #SBATCH --array=0-0   # 1 job, (meh) 
 
  cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
  #root 
