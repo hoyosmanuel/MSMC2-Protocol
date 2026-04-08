@@ -58,6 +58,7 @@ The original script: ``/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-m
    Once all scripts for each species have been modified, we can proceed with the following command. 
 
 .. code-block:: python
+
    cd /lustre/scratch/mhoyosro/project1/MSMC2
    nano endr2.sh
 
