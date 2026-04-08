@@ -57,15 +57,18 @@ The Mappability Masks
 3) Start the Mappability Mask for each species
 -----------------------------------------------
 
+.. code-block:: console
+
+  cd /lustre/scratch/mhoyosro/project1/MSMC2
+
 A) Mask for *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
-  cd /lustre/scratch/mhoyosro/project1/MSMC2
-
-
   nano hLar_maskr.sh
+
+.. code-block:: console
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -103,6 +106,10 @@ A) Mask for *Hipposideros larvatus*
 
 B) Mask for *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  nano mMol_maskr.sh
 
 .. code-block:: console
 
@@ -147,6 +154,10 @@ C) Mask for *Myotis myotis*
 
 .. code-block:: console
 
+  nano mMyo_maskr.sh
+
+.. code-block:: console
+
   #!/bin/bash
   #SBATCH --job-name=MASKR
   #SBATCH --output=%x.%j.out
@@ -183,6 +194,10 @@ C) Mask for *Myotis myotis*
 
 D) Mask for *Phyllostomus discolor*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  nano pDis_maskr.sh
 
 .. code-block:: console
 
@@ -225,6 +240,10 @@ E) Mask for *Pipistrellus kuhlii*
 
 .. code-block:: console
 
+  nano pKuh_maskr.sh
+
+.. code-block:: console
+
   #!/bin/bash
   #SBATCH --job-name=MASKR
   #SBATCH --output=%x.%j.out
@@ -264,6 +283,10 @@ F) Mask for *Rhinolophus ferrumequinum*
 
 .. code-block:: console
 
+  nano rFer_maskr.sh
+
+.. code-block:: console
+
   #!/bin/bash
   #SBATCH --job-name=MASKR
   #SBATCH --output=%x.%j.out
@@ -296,5 +319,48 @@ F) Mask for *Rhinolophus ferrumequinum*
   perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  rFer_splitted.sam   >  rFer_genome_rawmask.fa
   # Create the Mask
   gen_mask -l 35 -r 0.5 rFer_genome_rawmask.fa > rFer.genome.mask.fa
+
+
+G) Mask for *Rousettus aegyptiacus*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  nano rAeg_maskr.sh
+
+.. code-block:: console
+
+  #!/bin/bash
+  #SBATCH --job-name=MASKR
+  #SBATCH --output=%x.%j.out
+  #SBATCH --error=%x.%j.err
+  #SBATCH --partition=nocona
+  #SBATCH --nodes=1
+  #SBATCH --ntasks=64
+
+  # Activate the environment
+  . /home/mhoyosro/conda/etc/profile.d/conda.sh
+  conda activate alineador
+  # Enter into the directory
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+  # Base directory
+  BASE_DIR="/lustre/scratch/mhoyosro/project1/GENOMES"
+  # Put the Splitfa software into the path
+  export PATH=/lustre/work/mhoyosro/software/seqbility/seqbility-20091110/:${PATH}
+  # Break down the reference genome in kmers
+  mkdir x_files
+  splitfa $BASE_DIR/mRouAeg1.4.pri.fa | split -l 20000000
+  mv x* x_files
+  cd x_files
+  cat x* >> ../rAeg_splitted
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+  # Aling the spplited reference to the Genome
+  bwa aln -t 64 -O 3 -E 3  $BASE_DIR/mRouAeg1.4.pri.fa  rAeg_splitted  >  rAeg_splitted.sai
+  # Pass the sai file to a sam file
+  bwa samse -f rAeg_splitted.sam  $BASE_DIR/mRouAeg1.4.pri.fa  rAeg_splitted.sai  rAeg_splitted
+  # Create the RawMask
+  perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  rAeg_splitted.sam   >  rAeg_genome_rawmask.fa
+  # Create the Mask
+  gen_mask -l 35 -r 0.5 rAeg_genome_rawmask.fa > rAeg.genome.mask.fa
 
 
