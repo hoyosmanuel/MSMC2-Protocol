@@ -1,22 +1,12 @@
-MSMC2 Protocol
-==============
+MSMC2 protocol
+===================================
 
-Pipeline MSMC2 murciélagos.
-
-Este protocolo incluye:
-
-- Preparación de datos
-- Ejecución de MSMC2
-- Bootstrapping
-- Ejemplos reales en especies de murciélagos
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contenido
-   :titlesonly:
 
-   introduccion
-   instalacion
-   pipeline
-   artibeus_lituratus
-   myotis_myotis
+   00_Required_Softs.rst
+   01_Data_Pre-Processing.rst
+   02_PSMC.rst
+   03_psmc_visualization.rst
