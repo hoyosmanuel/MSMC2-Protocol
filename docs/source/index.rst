@@ -2,7 +2,7 @@ MSMC2 protocol
 ==============
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    00_Tutorial Overview
    01_Required_Softs
