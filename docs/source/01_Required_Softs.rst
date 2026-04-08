@@ -56,3 +56,14 @@ The required software was installed using conda from the bioconda and conda-forg
        -c bioconda -c conda-forge
 
    conda activate alineador
+
+
+5) Install sratoolkit
+-------------------------------------
+
+.. code-block:: bash
+
+   cd /lustre/work/mhoyosro/software
+   wget --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+   tar -zxvf sratoolkit.tar.gz
+   export PATH=/lustre/work/mhoyosro/software/sratoolkit/bin:${PATH}
