@@ -52,3 +52,50 @@ The Mappability Mask
    GENOMA=${GENOMAS[$SLURM_ARRAY_TASK_ID-1]}
 
    bwa index -p ${GENOMA}.bwa -a bwtsw -t $SLURM_NTASKS $GENOMA
+
+
+3) Start the Mappability Mask for each species
+-----------------------------------------------
+
+A) Mask for Hipposideros larvatus
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  cd /lustre/scratch/mhoyosro/project1/MSMC2
+
+
+  nano hLar_maskr.sh
+
+  #!/bin/bash
+  #SBATCH --job-name=MASKR
+  #SBATCH --output=%x.%j.out
+  #SBATCH --error=%x.%j.err
+  #SBATCH --partition=nocona
+  #SBATCH --nodes=1
+  #SBATCH --ntasks=64
+
+  # Activate the environment
+  . /home/mhoyosro/conda/etc/profile.d/conda.sh
+  conda activate alineador
+  # Enter into the directory
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
+  # Base directory
+  BASE_DIR="/lustre/scratch/mhoyosro/project1/GENOMES"
+  # Put the Splitfa software into the path
+  export PATH=/lustre/work/mhoyosro/software/seqbility/seqbility-20091110/:${PATH}
+  # Break down the reference genome in kmers
+  mkdir x_files
+  splitfa $BASE_DIR/mHipLar1.2.pri.fa | split -l 20000000
+  mv x* x_files
+  cd x_files
+  cat x* >> ../hLar_splitted
+  cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
+  # Aling the spplited reference to the Genome
+  bwa aln -t 64 -O 3 -E 3  $BASE_DIR/mHipLar1.2.pri.fa  hLar_splitted  >  hLar_splitted.sai
+  # Pass the sai file to a sam file
+  bwa samse -f hLar_splitted.sam  $BASE_DIR/mHipLar1.2.pri.fa  hLar_splitted.sai  hLar_splitted
+  # Create the RawMask
+  perl /lustre/scratch/mhoyosro/project1/seqbility/gen_raw_mask.pl  hLar_splitted.sam   >  hLar_genome_rawmask.fa
+  # Create the Mask
+  gen_mask -l 35 -r 0.5 hLar_genome_rawmask.fa > hLar.genome.mask.fa
