@@ -1,4 +1,12 @@
-.. toctree::
+MSMC2 protocol
+==============
 
-   00_Required_Softs.rst
-   01_Data_Pre-Processing.rst
+Contents
+========
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   00_Required_Softs
+   01_Data_Pre-Processing
