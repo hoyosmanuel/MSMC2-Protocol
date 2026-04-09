@@ -1,6 +1,11 @@
 Extract the neutral regions from the reference genome
 =====================================================
 
+.. image:: _static/mask.png
+   :width: 600px
+   :align: center
+
+
 1) Set new directories for the neutralome
 ------------------------------------------
 
