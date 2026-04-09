@@ -480,26 +480,32 @@ G) *Rousettus aegyptiacus*
 12) Combine the .bed mask files because they are generated separately and come out fragmented.
 -----------------------------------------------------------------------------------------------
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
-cat masks1/*.bed > combined_neutral.bed
+.. code-block:: bash
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol
-cat masks1/*.bed > combined_neutral.bed
+	# For Hipposideros larvatus
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
+	cat masks1/*.bed > combined_neutral.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
-cat masks1/*.bed > combined_neutral.bed
+	# For Molossus molossus
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol
+	cat masks1/*.bed > combined_neutral.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
-cat masks1/*.bed > combined_neutral.bed
+	# For Myotis myotis
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+	cat masks1/*.bed > combined_neutral.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
-cat masks1/*.bed > combined_neutral.bed
+	# For Phyllostomus discolor
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+	cat masks1/*.bed > combined_neutral.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
-cat masks1/*.bed > combined_neutral.bed
+	# For Pipistrellus kuhlii
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+	cat masks1/*.bed > combined_neutral.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
-cat masks1/*.bed > combined_neutral.bed
+	# For Rhinolophus ferrumequinum
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+	cat masks1/*.bed > combined_neutral.bed
 
-
-
+	# For Rousettus aegyptiacus
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+	cat masks1/*.bed > combined_neutral.bed
