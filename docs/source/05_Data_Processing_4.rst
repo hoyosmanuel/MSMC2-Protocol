@@ -103,7 +103,7 @@ Extract the neutral regions from the reference genome
 	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mRouAeg1.4.pri.fa.fai > rAeg_genomeSIZE
 
 
-4) Sort the files
+5) Sort the files
 ------------------
 
 .. code-block:: bash
