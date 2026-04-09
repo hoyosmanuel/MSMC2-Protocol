@@ -103,3 +103,38 @@ Extract the neutral regions from the reference genome
 	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mRouAeg1.4.pri.fa.fai > rAeg_genomeSIZE
 
 
+4) Sort the files
+------------------
+
+.. code-block:: bash
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	sort -k1,1 -k2,2n hLar_justGENES.bed > hLar_justGENES.sorted.bed
+	sort -k1,1 -k2,2n hLar_genomeSIZE > hLar_sorted.genomeSIZE
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	sort -k1,1 -k2,2n mMol_justGENES.bed > mMol_justGENES.sorted.bed
+	sort -k1,1 -k2,2n mMol_genomeSIZE > mMol_sorted.genomeSIZE 
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	sort -k1,1 -k2,2n mMyo_justGENES.bed > mMyo_justGENES.sorted.bed
+	sort -k1,1 -k2,2n mMyo_genomeSIZE > mMyo_sorted.genomeSIZE 
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	sort -k1,1 -k2,2n pDis_justGENES.bed > pDis_justGENES.sorted.bed
+	sort -k1,1 -k2,2n pDis_genomeSIZE > pDis_sorted.genomeSIZE 
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	sort -k1,1 -k2,2n pKuh_justGENES.bed > pKuh_justGENES.sorted.bed
+	sort -k1,1 -k2,2n pKuh_genomeSIZE > pKuh_sorted.genomeSIZE 
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	sort -k1,1 -k2,2n rFer_justGENES.bed > rFer_justGENES.sorted.bed
+	sort -k1,1 -k2,2n rFer_genomeSIZE > rFer_sorted.genomeSIZE 
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	sort -k1,1 -k2,2n rAeg_justGENES.bed > rAeg_justGENES.sorted.bed
+	sort -k1,1 -k2,2n rAeg_genomeSIZE > rAeg_sorted.genomeSIZE
+
+
+
