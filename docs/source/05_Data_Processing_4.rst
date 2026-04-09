@@ -1,6 +1,10 @@
 Extract the neutral regions from the reference genome
 =====================================================
 
+.. note::
+
+ The main objective of this step is to compute the intersection between the BED intervals derived from the reference genome mappability mask and the BED intervals representing intergenic regions from the corresponding genome annotation file.
+
 .. image:: _static/pic.png
    :width: 400px
    :align: center
