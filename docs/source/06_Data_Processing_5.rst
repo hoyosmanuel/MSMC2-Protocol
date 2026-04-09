@@ -5,7 +5,7 @@
 
 
 Detect sex chromosomes
-======================
+=======================
 
 1. Create a directories for sexual markers
 -----------------------------------------------
@@ -84,7 +84,7 @@ Detect sex chromosomes
 
 
 A) *Hipposideros larvatus*
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | 2n = 32 => 14 pairs of Autosomes + X Y 
 | Chromosome X = manual_scaffold_14 
@@ -103,7 +103,7 @@ C) *Myotis myotis*
 | Chromosome X = scaffold_m19_p_4
 
 D) *Phyllostomus discolor*
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | 2n = 32 => 14 pairs of Autosomes + X Y
 | Chromosome X = scaffold_m19_p_9 
