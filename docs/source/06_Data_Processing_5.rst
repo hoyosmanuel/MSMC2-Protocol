@@ -10,7 +10,7 @@ Detect sex chromosomes
 1. Create a directory with the sexual markers
 ----------------------------------------------
 
-..code: bash
+.. code block:: bash
 
 mkdir /lustre/scratch/mhoyosro/project1/SEX_MARKERS
 
