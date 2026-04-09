@@ -74,7 +74,7 @@ Detect sex chromosomes
  blastn -query SRY_gene.fa -db rAeg_DB -out rAeg_res_SRY.txt -outfmt 6
 
 
-5. Search in the DataBases
+5. Results
 ---------------------------
 
 .. note::
