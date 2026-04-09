@@ -9,7 +9,7 @@ The Mappability Masks of the Reference Genomes
 1) Set directories
 --------------------
 
-.. code-block:: console
+.. code-block:: bash
 
    cd /lustre/scratch/mhoyosro/project1/MSMC2
    mkdir hLar mMol mMyo pDis pKuh rFer rAeg
@@ -18,7 +18,7 @@ The Mappability Masks of the Reference Genomes
 2) Index the genomes
 -----------------------
 
-.. code-block:: console
+.. code-block:: bash
 
    cd /lustre/scratch/mhoyosro/project1/MSMC2
    nano indexer.sh
@@ -64,11 +64,11 @@ The Mappability Masks of the Reference Genomes
 A) Mask for *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano hLar_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -107,11 +107,11 @@ A) Mask for *Hipposideros larvatus*
 B) Mask for *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano mMol_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   cd /lustre/scratch/mhoyosro/project1/MSMC2
 
@@ -152,11 +152,11 @@ B) Mask for *Molossus molossus*
 C) Mask for *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano mMyo_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -195,11 +195,11 @@ C) Mask for *Myotis myotis*
 D) Mask for *Phyllostomus discolor*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano pDis_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -238,11 +238,11 @@ D) Mask for *Phyllostomus discolor*
 E) Mask for *Pipistrellus kuhlii*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano pKuh_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -281,11 +281,11 @@ E) Mask for *Pipistrellus kuhlii*
 F) Mask for *Rhinolophus ferrumequinum*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano rFer_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
@@ -324,11 +324,11 @@ F) Mask for *Rhinolophus ferrumequinum*
 G) Mask for *Rousettus aegyptiacus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
+.. code-block:: bash
 
   nano rAeg_maskr.sh
 
-.. code-block:: console
+.. code-block:: bash
 
   #!/bin/bash
   #SBATCH --job-name=MASKR
