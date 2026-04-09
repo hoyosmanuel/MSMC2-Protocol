@@ -76,8 +76,8 @@ Extract the neutral regions from the reference genome
 	conda activate alineador
 
 	cd /lustre/scratch/mhoyosro/project1/GENOMES
+	
 	for file in *.fa; do
-	    echo "Creando índice para: $archivo"
 	    samtools faidx "$file"
 	done
 
