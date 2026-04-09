@@ -275,7 +275,7 @@ G) *Rousettus aegyptiacus*
 A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-_No reads for this one_
+_ No reads for this one _
 
 B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -325,242 +325,265 @@ B) *Molossus molossus*
 C) *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: bash
 
-D) *Phyllostomus discolor*
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+ nano mMyo_single_mapper.sh
 
+.. code-block:: bash
 
-E) *Pipistrellus kuhlii*
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+ #!/bin/bash
+ #SBATCH --job-name=mMyomap
+ #SBATCH --output=%x_%A_%a.out
+ #SBATCH --error=%x_%A_%a.err
+ #SBATCH --partition=nocona
+ #SBATCH --nodes=1
+ #SBATCH --ntasks=64
+ #SBATCH --array=1-3
 
+ #avoid continuing with corrupted data
+ set -euo pipefail
 
-F) *Rhinolophus ferrumequinum*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate alineador
 
-nano mMyo_single_mapper.sh
+ cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+ #root 
+ ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
+ # SRAs list
+ SRAS=(SRAs/SRR27216487 SRAs/SRR27216488 SRAs/SRR27216489)
 
-#!/bin/bash
-#SBATCH --job-name=mMyomap
-#SBATCH --output=%x_%A_%a.out
-#SBATCH --error=%x_%A_%a.err
-#SBATCH --partition=nocona
-#SBATCH --nodes=1
-#SBATCH --ntasks=64
-#SBATCH --array=1-3
+ ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
 
-set -euo pipefail
+ R1="${ID}_1.fastq"
+ R2="${ID}_2.fastq"
 
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate alineador
+ # Align
+ bwa aln -t 64 $ROOT/mMyoMyo1.6.pri.fa ${R1} > ${ID}_1.sai
+ bwa aln -t 64 $ROOT/mMyoMyo1.6.pri.fa ${R2} > ${ID}_2.sai
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
-#root 
-ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
-# SRAs list
-SRAS=(SRAs/SRR27216487 SRAs/SRR27216488 SRAs/SRR27216489)
+ bwa sampe $ROOT/mMyoMyo1.6.pri.fa \
+   ${ID}_1.sai ${ID}_2.sai \
+   ${R1} ${R2} > ${ID}.sam
 
-ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
+ # Convert and sort
+ samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
+ samtools index -@ 64 ${ID}.sorted.bam
 
-R1="${ID}_1.fastq"
-R2="${ID}_2.fastq"
-
-# Align
-bwa aln -t 64 $ROOT/mMyoMyo1.6.pri.fa ${R1} > ${ID}_1.sai
-bwa aln -t 64 $ROOT/mMyoMyo1.6.pri.fa ${R2} > ${ID}_2.sai
-
-bwa sampe $ROOT/mMyoMyo1.6.pri.fa \
-  ${ID}_1.sai ${ID}_2.sai \
-  ${R1} ${R2} > ${ID}.sam
-
-# Convert and sort
-samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
-samtools index -@ 64 ${ID}.sorted.bam
-
-# Filter MAPQ 20, remove supplementary, secondary, unmapped reads
-samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
-samtools index ${ID}.filtered.bam
+ # Filter MAPQ 20, remove supplementary, secondary, unmapped reads
+ samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
+ samtools index ${ID}.filtered.bam
 
 
 
  
 
-nano pDis_single_mapper.sh
+D) *Phyllostomus discolor*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#!/bin/bash
-#SBATCH --job-name=pDismap
-#SBATCH --output=%x_%A_%a.out
-#SBATCH --error=%x_%A_%a.err
-#SBATCH --partition=nocona
-#SBATCH --nodes=1
-#SBATCH --ntasks=64
-#SBATCH --array=1-4
+.. code-block:: bash
 
-set -euo pipefail
+ nano pDis_single_mapper.sh
 
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate alineador
+.. code-block:: bash
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
-#root 
-ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
-# SRAs list
-SRAS=(SRAs/SRR25743112 SRAs/SRR25743100 SRAs/SRR25743067 SRAs/SRR25743055)
+ #!/bin/bash
+ #SBATCH --job-name=pDismap
+ #SBATCH --output=%x_%A_%a.out
+ #SBATCH --error=%x_%A_%a.err
+ #SBATCH --partition=nocona
+ #SBATCH --nodes=1
+ #SBATCH --ntasks=64
+ #SBATCH --array=1-4
 
-ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
+ #avoid continuing with corrupted data
+ set -euo pipefail
 
-R1="${ID}_1.fastq"
-R2="${ID}_2.fastq"
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate alineador
 
-# Align
-bwa aln -t 64 $ROOT/mPhyDis1.3.pri.fa ${R1} > ${ID}_1.sai
-bwa aln -t 64 $ROOT/mPhyDis1.3.pri.fa ${R2} > ${ID}_2.sai
+ cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+ #root 
+ ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
+ # SRAs list
+ SRAS=(SRAs/SRR25743112 SRAs/SRR25743100 SRAs/SRR25743067 SRAs/SRR25743055)
 
-bwa sampe $ROOT/mPhyDis1.3.pri.fa \
-  ${ID}_1.sai ${ID}_2.sai \
-  ${R1} ${R2} > ${ID}.sam
+ ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
 
-# Convert and sort
-samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
-samtools index -@ 64 ${ID}.sorted.bam
+ R1="${ID}_1.fastq"
+ R2="${ID}_2.fastq"
 
-# Filter MAPQ 20, remove supplementary, secondary, unmapped reads
-samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
-samtools index ${ID}.filtered.bam
+ # Align
+ bwa aln -t 64 $ROOT/mPhyDis1.3.pri.fa ${R1} > ${ID}_1.sai
+ bwa aln -t 64 $ROOT/mPhyDis1.3.pri.fa ${R2} > ${ID}_2.sai
 
+ bwa sampe $ROOT/mPhyDis1.3.pri.fa \
+   ${ID}_1.sai ${ID}_2.sai \
+   ${R1} ${R2} > ${ID}.sam
 
+ # Convert and sort
+ samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
+ samtools index -@ 64 ${ID}.sorted.bam
 
-
-nano pKuh_single_mapper.sh
-
-#!/bin/bash
-#SBATCH --job-name=pKuhmap
-#SBATCH --output=%x_%A_%a.out
-#SBATCH --error=%x_%A_%a.err
-#SBATCH --partition=nocona
-#SBATCH --nodes=1
-#SBATCH --ntasks=64
-#SBATCH --array=1-1
-
-set -euo pipefail
-
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate alineador
-
-cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
-#root 
-ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
-
-# SRAs list
-SRAS=(SRAs/SRR11744706)
-
-ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
-
-R1="${ID}_1.fastq"
-R2="${ID}_2.fastq"
-
-# Align
-bwa aln -t 64 $ROOT/mPipKuh1.2.pri.fa ${R1} > ${ID}_1.sai
-bwa aln -t 64 $ROOT/mPipKuh1.2.pri.fa ${R2} > ${ID}_2.sai
-
-bwa sampe $ROOT/mPipKuh1.2.pri.fa \
-  ${ID}_1.sai ${ID}_2.sai \
-  ${R1} ${R2} > ${ID}.sam
-
-# Convert and sort
-samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
-samtools index -@ 64 ${ID}.sorted.bam
-
-# Filter MAPQ 20, remove supplementary, secondary, unmapped reads
-samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
-samtools index ${ID}.filtered.bam
+ # Filter MAPQ 20, remove supplementary, secondary, unmapped reads
+ samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
+ samtools index ${ID}.filtered.bam
 
 
 
+E) *Pipistrellus kuhlii*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-nano rFer_single_mapper.sh
+.. code-block:: bash
 
-#!/bin/bash
-#SBATCH --job-name=rFermap
-#SBATCH --output=%x_%A_%a.out
-#SBATCH --error=%x_%A_%a.err
-#SBATCH --partition=nocona
-#SBATCH --nodes=1
-#SBATCH --ntasks=64
-#SBATCH --array=1-3
+ nano pKuh_single_mapper.sh
 
-set -euo pipefail
+.. code-block:: bash
 
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate alineador
+ #!/bin/bash
+ #SBATCH --job-name=pKuhmap
+ #SBATCH --output=%x_%A_%a.out
+ #SBATCH --error=%x_%A_%a.err
+ #SBATCH --partition=nocona
+ #SBATCH --nodes=1
+ #SBATCH --ntasks=64
+ #SBATCH --array=1-1
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
-#root 
-ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
-# SRAs list
-SRAS=(SRAs/SRR11777081 SRAs/SRR30056794 SRAs/SRR924361)
+ #avoid continuing with corrupted data
+ set -euo pipefail
 
-ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate alineador
 
-R1="${ID}_1.fastq"
-R2="${ID}_2.fastq"
+ cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+ #root 
+ ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
 
-# Align
-bwa aln -t 64 $ROOT/mRhiFer1.5.pri.fa ${R1} > ${ID}_1.sai
-bwa aln -t 64 $ROOT/mRhiFer1.5.pri.fa ${R2} > ${ID}_2.sai
+ # SRAs list
+ SRAS=(SRAs/SRR11744706)
 
-bwa sampe $ROOT/mRhiFer1.5.pri.fa \
-  ${ID}_1.sai ${ID}_2.sai \
-  ${R1} ${R2} > ${ID}.sam
+ ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
 
-# Convert and sort
-samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
-samtools index -@ 64 ${ID}.sorted.bam
+ R1="${ID}_1.fastq"
+ R2="${ID}_2.fastq"
 
-# Filter MAPQ 20, remove supplementary, secondary, unmapped reads
-samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
-samtools index ${ID}.filtered.bam
+ # Align
+ bwa aln -t 64 $ROOT/mPipKuh1.2.pri.fa ${R1} > ${ID}_1.sai
+ bwa aln -t 64 $ROOT/mPipKuh1.2.pri.fa ${R2} > ${ID}_2.sai
+
+ bwa sampe $ROOT/mPipKuh1.2.pri.fa \
+   ${ID}_1.sai ${ID}_2.sai \
+   ${R1} ${R2} > ${ID}.sam
+
+ # Convert and sort
+ samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
+ samtools index -@ 64 ${ID}.sorted.bam
+
+ # Filter MAPQ 20, remove supplementary, secondary, unmapped reads
+ samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
+ samtools index ${ID}.filtered.bam
 
 
 
-nano rAeg_single_mapper.sh
 
-#!/bin/bash
-#SBATCH --job-name=rAegmap
-#SBATCH --output=%x_%A_%a.out
-#SBATCH --error=%x_%A_%a.err
-#SBATCH --partition=nocona
-#SBATCH --nodes=1
-#SBATCH --ntasks=64
-#SBATCH --array=1-2
+F) *Rhinolophus ferrumequinum*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-set -euo pipefail
+.. code-block:: bash
 
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate alineador
+ nano rFer_single_mapper.sh
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
-#root 
-ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
-# SRAs list
-SRAS=(SRAs/SRR11773636 SRAs/SRR7637819)
+.. code-block:: bash
 
-ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
+ #!/bin/bash
+ #SBATCH --job-name=rFermap
+ #SBATCH --output=%x_%A_%a.out
+ #SBATCH --error=%x_%A_%a.err
+ #SBATCH --partition=nocona
+ #SBATCH --nodes=1
+ #SBATCH --ntasks=64
+ #SBATCH --array=1-3
 
-R1="${ID}_1.fastq"
-R2="${ID}_2.fastq"
+ #avoid continuing with corrupted data
+ set -euo pipefail
 
-# Align
-bwa aln -t 64 $ROOT/mRouAeg1.4.pri.fa ${R1} > ${ID}_1.sai
-bwa aln -t 64 $ROOT/mRouAeg1.4.pri.fa ${R2} > ${ID}_2.sai
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate alineador
 
-bwa sampe $ROOT/mRouAeg1.4.pri.fa \
-  ${ID}_1.sai ${ID}_2.sai \
-  ${R1} ${R2} > ${ID}.sam
+ cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+ #root 
+ ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
+ # SRAs list
+ SRAS=(SRAs/SRR11777081 SRAs/SRR30056794 SRAs/SRR924361)
 
-# Convert and sort
-samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
-samtools index -@ 64 ${ID}.sorted.bam
+ ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
 
-# Filter MAPQ 20, remove supplementary, secondary, unmapped reads
-samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
-samtools index ${ID}.filtered.bam
+ R1="${ID}_1.fastq"
+ R2="${ID}_2.fastq"
+
+ # Align
+ bwa aln -t 64 $ROOT/mRhiFer1.5.pri.fa ${R1} > ${ID}_1.sai
+ bwa aln -t 64 $ROOT/mRhiFer1.5.pri.fa ${R2} > ${ID}_2.sai
+
+ bwa sampe $ROOT/mRhiFer1.5.pri.fa \
+   ${ID}_1.sai ${ID}_2.sai \
+   ${R1} ${R2} > ${ID}.sam
+
+ # Convert and sort
+ samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
+ samtools index -@ 64 ${ID}.sorted.bam
+
+ # Filter MAPQ 20, remove supplementary, secondary, unmapped reads
+ samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
+ samtools index ${ID}.filtered.bam
+
+
+G) *Rousettus aegyptiacus*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+ nano rAeg_single_mapper.sh
+
+.. code-block:: bash
+
+ #!/bin/bash
+ #SBATCH --job-name=rAegmap
+ #SBATCH --output=%x_%A_%a.out
+ #SBATCH --error=%x_%A_%a.err
+ #SBATCH --partition=nocona
+ #SBATCH --nodes=1
+ #SBATCH --ntasks=64
+ #SBATCH --array=1-2
+
+ #avoid continuing with corrupted data
+ set -euo pipefail
+
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate alineador
+
+ cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+ #root 
+ ROOT=/lustre/scratch/mhoyosro/project1/GENOMES
+ # SRAs list
+ SRAS=(SRAs/SRR11773636 SRAs/SRR7637819)
+
+ ID=${SRAS[$((SLURM_ARRAY_TASK_ID-1))]}
+
+ R1="${ID}_1.fastq"
+ R2="${ID}_2.fastq"
+
+ # Align
+ bwa aln -t 64 $ROOT/mRouAeg1.4.pri.fa ${R1} > ${ID}_1.sai
+ bwa aln -t 64 $ROOT/mRouAeg1.4.pri.fa ${R2} > ${ID}_2.sai
+
+ bwa sampe $ROOT/mRouAeg1.4.pri.fa \
+   ${ID}_1.sai ${ID}_2.sai \
+   ${R1} ${R2} > ${ID}.sam
+
+ # Convert and sort
+ samtools sort -@ 64 -o ${ID}.sorted.bam ${ID}.sam
+ samtools index -@ 64 ${ID}.sorted.bam
+
+ # Filter MAPQ 20, remove supplementary, secondary, unmapped reads
+ samtools view -b -q 20 -F 2308 ${ID} > ${ID}.filtered.bam
+ samtools index ${ID}.filtered.bam
