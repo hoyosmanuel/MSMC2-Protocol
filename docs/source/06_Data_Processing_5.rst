@@ -3,7 +3,6 @@
  MSMC methods assume homogeneous recombination and diploid Mendelian inheritance (Mather et al., 2019). Therefore, excluding sex chromosomes (or sex-linked loci located on autosomes) from the main analysis is advisable. Here, we removed these regions prior to analysis. Alternative and potentially more robust approaches may exist; however, the following describes the procedure used in this study.
 
 
-
 Detect sex chromosomes
 =======================
 
@@ -20,7 +19,7 @@ Detect sex chromosomes
 
 .. note::
 
- In this study, the markers KDM5C and ZFX (X-linked genes) and SRY* (a Y-specific gene) were used. Reference sequences for these genes were obtained from GenBank using bat-derived FASTA files. These FASTA files are placed in the SEX_MARKERS directory. *The SRY marker did not yield conclusive results.
+ In this study, the markers KDM5C and ZFX (X-linked genes) and SRY (a Y-specific gene) were used. Reference sequences for these genes were obtained from GenBank using bat-derived FASTA files. These FASTA files are placed in the SEX_MARKERS directory. The SRY marker did not yield conclusive results.
 
 
 3. Create the DataBases
