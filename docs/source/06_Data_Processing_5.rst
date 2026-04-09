@@ -10,25 +10,24 @@ Detect sex chromosomes
 1. Create a directory with the sexual markers
 ----------------------------------------------
 
-.. code block:: bash
+.. code-block:: bash
 
-mkdir /lustre/scratch/mhoyosro/project1/SEX_MARKERS
+ mkdir /lustre/scratch/mhoyosro/project1/SEX_MARKERS
 
-#Activate Blast
+ #Activate Blast
+ . /home/mhoyosro/conda/etc/profile.d/conda.sh
+ conda activate blast
 
-. /home/mhoyosro/conda/etc/profile.d/conda.sh
-conda activate blast
+ #Create the DataBases
 
-#Create the DataBases
-
-cd /lustre/scratch/mhoyosro/project1/SEX_MARKERS
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mHipLar1.2.pri.fa -dbtype nucl -out hLar_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mMolMol1.2.pri.fa -dbtype nucl -out mMol_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa -dbtype nucl -out mMyo_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mPhyDis1.3.pri.fa -dbtype nucl -out pDis_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mPipKuh1.2.pri.fa -dbtype nucl -out pKuh_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mRhiFer1.5.pri.fa -dbtype nucl -out rFer_DB
-makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mRouAeg1.4.pri.fa -dbtype nucl -out rAeg_DB
+ cd /lustre/scratch/mhoyosro/project1/SEX_MARKERS
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mHipLar1.2.pri.fa -dbtype nucl -out hLar_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mMolMol1.2.pri.fa -dbtype nucl -out mMol_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa -dbtype nucl -out mMyo_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mPhyDis1.3.pri.fa -dbtype nucl -out pDis_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mPipKuh1.2.pri.fa -dbtype nucl -out pKuh_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mRhiFer1.5.pri.fa -dbtype nucl -out rFer_DB
+ makeblastdb -in /lustre/scratch/mhoyosro/project1/GENOMES/mRouAeg1.4.pri.fa -dbtype nucl -out rAeg_DB
 
 #Look for the KDM5C first 
 blastn -query KDM5C_gene.fa -db hLar_DB -out hLar_res_KDM5C.txt -outfmt 6
