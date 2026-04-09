@@ -5,9 +5,12 @@
 
 
 Detect sex chromosomes
---------------------------
+======================
 
-#Create a directory with the sexual markers
+1. Create a directory with the sexual markers
+----------------------------------------------
+
+..code: bash
 
 mkdir /lustre/scratch/mhoyosro/project1/SEX_MARKERS
 
