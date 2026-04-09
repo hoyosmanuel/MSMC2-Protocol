@@ -7,5 +7,7 @@ Calculate heterozygosity
 .. note::
 
   | So, let's recapitulate a bit to have a map of what we have so far:
-| · Mask 1 contains the intergenic fraccion which is neutral
+  | · Mask 1 contains the intergenic fraccion which is neutral
+
+
 
