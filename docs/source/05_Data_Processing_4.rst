@@ -175,7 +175,7 @@ Extract the neutral regions from the reference genome
 7) Extend the flanking regions by ~10 kb
 -----------------------------------------
 
-.. note::
+.. code-block:: bash
 
 	. /home/mhoyosro/conda/etc/profile.d/conda.sh
 	conda activate alineador
