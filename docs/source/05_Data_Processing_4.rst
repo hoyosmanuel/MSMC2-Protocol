@@ -137,4 +137,66 @@ Extract the neutral regions from the reference genome
 	sort -k1,1 -k2,2n rAeg_genomeSIZE > rAeg_sorted.genomeSIZE
 
 
+6) Merge overlapping gene regions
+---------------------------------
 
+.. note::
+
+ bedtools merge combines genes that overlap or are adjacent into a single continuous region.
+
+.. code-block:: bash
+
+	. /home/mhoyosro/conda/etc/profile.d/conda.sh
+	conda activate alineador
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	bedtools merge -i hLar_justGENES.sorted.bed > hLar_merged_genes.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	bedtools merge -i mMol_justGENES.sorted.bed > mMol_merged_genes.bed
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	bedtools merge -i mMyo_justGENES.sorted.bed > mMyo_merged_genes.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	bedtools merge -i pDis_justGENES.sorted.bed > pDis_merged_genes.bed
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	bedtools merge -i pKuh_justGENES.sorted.bed > pKuh_merged_genes.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	bedtools merge -i rFer_justGENES.sorted.bed > rFer_merged_genes.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	bedtools merge -i rAeg_justGENES.sorted.bed > rAeg_merged_genes.bed
+
+
+
+7) Extend the flanking regions by ~10 kb
+-----------------------------------------
+
+.. note::
+
+	. /home/mhoyosro/conda/etc/profile.d/conda.sh
+	conda activate alineador
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	bedtools slop -i hLar_merged_genes.bed -g hLar_sorted.genomeSIZE -b 10000 > hLar_genes_with_buffer.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	bedtools slop -i mMol_merged_genes.bed -g mMol_sorted.genomeSIZE -b 10000 > mMol_genes_with_buffer.bed
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	bedtools slop -i mMyo_merged_genes.bed -g mMyo_sorted.genomeSIZE -b 10000 > mMyo_genes_with_buffer.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	bedtools slop -i pDis_merged_genes.bed -g pDis_sorted.genomeSIZE -b 10000 > pDis_genes_with_buffer.bed
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	bedtools slop -i pKuh_merged_genes.bed -g pKuh_sorted.genomeSIZE -b 10000 > pKuh_genes_with_buffer.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	bedtools slop -i rFer_merged_genes.bed -g rFer_sorted.genomeSIZE -b 10000 > rFer_genes_with_buffer.bed
+ 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	bedtools slop -i rAeg_merged_genes.bed -g rAeg_sorted.genomeSIZE -b 10000 > rAeg_genes_with_buffer.bed
