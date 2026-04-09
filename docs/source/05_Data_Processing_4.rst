@@ -68,3 +68,38 @@ Extract the neutral regions from the reference genome
 	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mRouAeg1.4.pri.TOGA.bed >  rAeg_justGENES.bed
 
 
+4) Calculate the scaffold sizes of the reference genome
+--------------------------------------------------------
+.. code-block:: bash
+
+	. /home/mhoyosro/conda/etc/profile.d/conda.sh
+	conda activate alineador
+
+	cd /lustre/scratch/mhoyosro/project1/GENOMES
+	for file in *.fa; do
+	    echo "Creando índice para: $archivo"
+	    samtools faidx "$file"
+	done
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mHipLar1.2.pri.fa.fai>  hLar_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mMolMol1.2.pri.fa.fai > mMol_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa.fai > mMyo_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mPhyDis1.3.pri.fa.fai > pDis_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mPipKuh1.2.pri.fa.fai > pKuh_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mRhiFer1.5.pri.fa.fai > rFer_genomeSIZE
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	cut -f1-2 /lustre/scratch/mhoyosro/project1/GENOMES/mRouAeg1.4.pri.fa.fai > rAeg_genomeSIZE
+
+
