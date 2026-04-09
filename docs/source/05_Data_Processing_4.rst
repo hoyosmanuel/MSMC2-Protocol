@@ -2,7 +2,7 @@ Extract the neutral regions from the reference genome
 =====================================================
 
 .. image:: _static/pic.png
-   :width: 600px
+   :width: 300px
    :align: center
 
 
