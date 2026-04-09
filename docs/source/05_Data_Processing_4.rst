@@ -235,7 +235,7 @@ Extract the neutral regions from the reference genome
 	bedtools complement -i rAeg_genes_with_buffer.bed -g rAeg_sorted.genomeSIZE > rAeg_intergenic.bed
 
 
-8) Filter for large regions (≥10 kb)
+9) Filter for large regions (≥10 kb)
 -----------------------------------------
 
 .. note::
@@ -265,4 +265,86 @@ Extract the neutral regions from the reference genome
 	 
 	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
 	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' rAeg_intergenic.bed > rAeg_intergenic_min10kb.bed
+
+
+10) Copy the results in the working directories
+-----------------------------------------------
+		
+.. code-block:: bash
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	cp hLar_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/hLar 
+		 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	cp mMol_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/mMol
+		
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	cp mMyo_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+		 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	cp pDis_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+		
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	cp pKuh_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+		 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	cp rFer_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+		 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	cp rAeg_intergenic_min10kb.bed /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+	
+
+11) Prepare files for intersect
+-----------------------------------------------
+		
+.. code-block:: bash
+
+	#Create the scaffolds lists 
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg/map_mask
+	ls *.mask.bed | sed 's/\.mask\.bed$//' > ../scaffolds.txt
+
+	#Create the destination directory for each species
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar 
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+	mkdir masks1
+	cd map_mask
+	gzip -d *.gz
+
 
