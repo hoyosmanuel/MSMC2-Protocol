@@ -1,7 +1,7 @@
 Extract the neutral regions from the reference genome
 =====================================================
 
-.. image:: _static/mask.png
+.. image:: _static/pic.png
    :width: 600px
    :align: center
 
