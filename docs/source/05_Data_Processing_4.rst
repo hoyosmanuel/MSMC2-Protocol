@@ -234,3 +234,35 @@ Extract the neutral regions from the reference genome
 	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
 	bedtools complement -i rAeg_genes_with_buffer.bed -g rAeg_sorted.genomeSIZE > rAeg_intergenic.bed
 
+
+8) Filter for large regions (≥10 kb)
+-----------------------------------------
+
+.. note::
+	Very small regions may not be informative for MSMC2, larger regions instead contain enough variants to estimate coalescent rates reducing recombination noise in very short fragments. 
+	After performing multiple cuts on the genome as we have done, it is possible that small fragments were created. Therefore, this step makes sense in my view, but proceed carefully with your data if you are following this protocol.
+	
+
+.. code-block:: bash
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' hLar_intergenic.bed > hLar_intergenic_min10kb.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' mMol_intergenic.bed > mMol_intergenic_min10kb.bed
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' mMyo_intergenic.bed > mMyo_intergenic_min10kb.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' pDis_intergenic.bed > pDis_intergenic_min10kb.bed
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' pKuh_intergenic.bed > pKuh_intergenic_min10kb.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' rFer_intergenic.bed > rFer_intergenic_min10kb.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	awk 'BEGIN{OFS="\t"} {if($3-$2 >= 10000) print $1, $2, $3}' rAeg_intergenic.bed > rAeg_intergenic_min10kb.bed
+
