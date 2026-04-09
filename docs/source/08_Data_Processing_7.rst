@@ -1,12 +1,16 @@
 Calculate heterozygosity
 ========================
 
-1) Calculate Heterozigosity using a ``bcftools mpileup``
-----------------------------------------------------------
+1) Produce files to calculate Heterozigosity using a ``bcftools mpileup``
+--------------------------------------------------------------------------
 
 .. note::
 
    At this stage, the dataset includes intergenic regions previously intersected with the mappability mask (Directory mask_1), which were used as putatively neutral regions. The karyotypes of the study species are known, and sex-linked scaffolds were identified in a previous step (X markers). Because MSMC assumes approximately homogeneous recombination and diploid Mendelian inheritance, scaffolds corresponding to the X chromosome were excluded from the main analysis. The scaffold number does not necessarily correspond 1:1 with chromosome number in genome assemblies produce with PCBIO, as assemblies may remain fragmented. Therefore, the following scaffold selection was guided by both karyotype information and prior identification of sex-linked regions.
+
+.. note::
+
+   For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening.
 
 .. code-block:: bash
 
@@ -130,7 +134,8 @@ Calculate heterozygosity
 
 
 
-
+2) Calculate Heterozygosity of the positive samples
+----------------------------------------------------------
 
 
 
