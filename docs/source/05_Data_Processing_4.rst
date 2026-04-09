@@ -44,32 +44,27 @@ Extract the neutral regions from the reference genome
 
  My TOGA annotations are in BED12 format, so they contain 12 columns. This format includes both gene and transcript intervals. I will use intergenic regions, as they are expected to be closer to neutrality. To do this, we will extract the columns corresponding to genes—specifically, the first six columns—and create a simplified BED file
 
+.. code-block:: bash
 
-#Las anotaciones de TOGA están en BED 12, tienen 12 columnas
-#Lo bueno es que este formato tiene los intervalos de genes y los intervalos de transcritos
-#Yo voy a usar regiones intergenicas porque son mas neutrales y ya
-#entonces vamos a cortar las columnas corresoindientes a los genes:
-#Extraer las primeras 6 columnas y ponerlas en un bed simplifcado
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mHipLar1.2.pri.TOGA.bed >  hLar_justGENES.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mHipLar1.2.pri.TOGA.bed >  hLar_justGENES.bed
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mMolMol1.2.pri.TOGA.bed >  mMol_justGENES.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mMolMol1.2.pri.TOGA.bed >  mMol_justGENES.bed
-
-cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mMyoMyo1.6.pri.TOGA.bed >  mMyo_justGENES.bed
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mMyoMyo1.6.pri.TOGA.bed >  mMyo_justGENES.bed
 				
-cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mPhyDis1.3.pri.TOGA.bed >  pDis_justGENES.bed
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mPhyDis1.3.pri.TOGA.bed >  pDis_justGENES.bed
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mPipKuh1.2.pri.TOGA.bed >  pKuh_justGENES.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mPipKuh1.2.pri.TOGA.bed >  pKuh_justGENES.bed
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mRhiFer1.5.pri.TOGA.bed >  rFer_justGENES.bed
 
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mRhiFer1.5.pri.TOGA.bed >  rFer_justGENES.bed
-
-cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
-cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mRouAeg1.4.pri.TOGA.bed >  rAeg_justGENES.bed
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	cut -f1-6 /lustre/scratch/mhoyosro/project1/ANNOTATIONS/mRouAeg1.4.pri.TOGA.bed >  rAeg_justGENES.bed
 
 
