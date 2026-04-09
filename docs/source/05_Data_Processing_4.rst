@@ -205,7 +205,7 @@ Extract the neutral regions from the reference genome
 -------------------------------------------
 
 .. note::
- ´´bedtools complement´´ identifies genomic regions not covered by the input file (hLar_genes_with_buffer.bed), producing as output the intergenic regions (hLar_intergenic.bed) assuming that intergenic regions are approximately neutral
+ ``bedtools complement`` identifies genomic regions not covered by the input file (hLar_genes_with_buffer.bed), producing as output the intergenic regions (hLar_intergenic.bed) assuming that intergenic regions are approximately neutral
 
 
 .. code-block:: bash
