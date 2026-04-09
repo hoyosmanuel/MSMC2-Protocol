@@ -347,4 +347,96 @@ Extract the neutral regions from the reference genome
 	cd map_mask
 	gzip -d *.gz
 
+	
+
+12) Do the intersect
+----------------------
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/hLar
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/hLar_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/mMol
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/mMol_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/mMyo_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/pDis
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/pDis_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/pKuh_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/rFer
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/rFer_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+ROOT=/lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+cd $ROOT
+
+mapfile -t scaffolds < scaffolds.txt
+
+for scaffold in "${scaffolds[@]}"; do
+    bedtools intersect \
+    -a $ROOT/rAeg_intergenic_min10kb.bed \
+    -b $ROOT/map_mask/${scaffold}.mask.bed > masks1/${scaffold}.mask.bed
+done
+
+
 
