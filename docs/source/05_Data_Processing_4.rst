@@ -477,4 +477,29 @@ G) *Rousettus aegyptiacus*
 	done
 
 
+12) Combine the .bed mask files because they are generated separately and come out fragmented.
+-----------------------------------------------------------------------------------------------
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/hLar
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMol
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/pDis
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/pKuh
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/rFer
+cat masks1/*.bed > combined_neutral.bed
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/rAeg
+cat masks1/*.bed > combined_neutral.bed
+
+
 
