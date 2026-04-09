@@ -171,7 +171,6 @@ Extract the neutral regions from the reference genome
 	bedtools merge -i rAeg_justGENES.sorted.bed > rAeg_merged_genes.bed
 
 
-
 7) Extend the flanking regions by ~10 kb
 -----------------------------------------
 
@@ -197,6 +196,41 @@ Extract the neutral regions from the reference genome
  
 	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
 	bedtools slop -i rFer_merged_genes.bed -g rFer_sorted.genomeSIZE -b 10000 > rFer_genes_with_buffer.bed
- 
+
 	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
 	bedtools slop -i rAeg_merged_genes.bed -g rAeg_sorted.genomeSIZE -b 10000 > rAeg_genes_with_buffer.bed
+
+
+8) Extract the intergenic regions (part 1)
+-------------------------------------------
+
+.. note::
+ ´´bedtools complement´´ identifies genomic regions not covered by the input file (hLar_genes_with_buffer.bed), producing as output the intergenic regions (hLar_intergenic.bed) assuming that intergenic regions are approximately neutral
+
+
+.. code-block:: bash
+
+	. /home/mhoyosro/conda/etc/profile.d/conda.sh
+	conda activate alineador
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/hipposideros
+	bedtools complement -i hLar_genes_with_buffer.bed -g hLar_sorted.genomeSIZE > hLar_intergenic.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/molossus
+	bedtools complement -i mMol_genes_with_buffer.bed -g mMol_sorted.genomeSIZE > mMol_intergenic.bed
+	
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/myotis
+	bedtools complement -i mMyo_genes_with_buffer.bed -g mMyo_sorted.genomeSIZE > mMyo_intergenic.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/phyllostomus
+	bedtools complement -i pDis_genes_with_buffer.bed -g pDis_sorted.genomeSIZE > pDis_intergenic.bed
+
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/pipistrellus
+	bedtools complement -i pKuh_genes_with_buffer.bed -g pKuh_sorted.genomeSIZE > pKuh_intergenic.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rhinolophus
+	bedtools complement -i rFer_genes_with_buffer.bed -g rFer_sorted.genomeSIZE > rFer_intergenic.bed
+	 
+	cd /lustre/scratch/mhoyosro/project1/MSMC2/rousettus
+	bedtools complement -i rAeg_genes_with_buffer.bed -g rAeg_sorted.genomeSIZE > rAeg_intergenic.bed
+
