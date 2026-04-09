@@ -1,7 +1,7 @@
 Extract the neutral regions from the reference genome
 =====================================================
 
-1) Set directories for the neutralome
+1) Set new directories for the neutralome
 --------------------------------------
 
 .. code-block:: bash
