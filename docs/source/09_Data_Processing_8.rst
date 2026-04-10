@@ -385,29 +385,9 @@ C) *Myotis myotis*
    
    # Depth 039
    DEPTH039=4.62979
-   # Depth 040
-   DEPTH040=28.6231
-   # Depth 041
-   DEPTH041=32.4736
-   # Depth 487
-   DEPTH487=14.5317
-   # Depth 488
-   DEPTH488=18.5191
-   # Depth 489
-   DEPTH489=46.3561
    
    # BAM039
    BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
-   # BAM040
-   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
-   # BAM041
-   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
-   # BAM487
-   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
-   # BAM488
-   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
-   # BAM489
-   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM039 | \
