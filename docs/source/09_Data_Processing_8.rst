@@ -121,7 +121,9 @@ A) *Hipposideros larvatus*
    python $TOOL $DEPTH893 masks2/sample_893/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_893/out.$region.vcf.gz
    done
-   
+
+**Sample 894**
+
 .. code-block:: bash
 
    nano hLar_bamcaller2.sh
@@ -167,6 +169,8 @@ A) *Hipposideros larvatus*
    gzip -c  >  output_sample_894/out.$region.vcf.gz
    done
  
+**Sample 930**
+
 .. code-block:: bash
 
    nano hLar_bamcaller3.sh
