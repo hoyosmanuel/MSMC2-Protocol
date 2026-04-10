@@ -13,8 +13,9 @@ Calculate heterozygosity
    For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening. This step is critical and requires careful attention. The `bcftools mpileup` command converts BAM alignments into VCF format.
 
    The analysis is restricted to:
-   - autosomal scaffolds (`-r`)
-   - neutral callable regions (`-R`)
+   - The putative autosomal scaffolds (`-r`)
+   - The neutral callable regions in mask_1 (`-R`)
+   - Estas options="-B -q 20 -Q 20 -C 50" se refieren a calidad así de una vez vamos a estar purgando posisiciones de mala calidad
 
 .. code-block:: bash
 
@@ -149,7 +150,7 @@ Calculate heterozygosity
 
 .. note::
 
-   Bueno entonces el comando anterior nos produce un VCF file y ese VCF contiene la informacion que necesitamos pero hay pulirlo más para eso le vamos a sacar la informacion que necesitamos 
+   Bueno entonces el comando anterior nos produce un VCF file y ese VCF contiene la informacion que necesitamos pero hay pulirlo porque voy a ser sincero y transparente contigo la función -r no me recorrió los scaffolds que pensaba y sacó las variantes para todos los scaffolds. no sé porque pasó eso pero podemos arreglarlo con el comando grep especificando que scaffolds vamos a operar.
 
 https://en.wikipedia.org/wiki/Variant_Call_Format
 
@@ -157,6 +158,10 @@ A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
+
+   # Usa el comando grep para encontrar todo lo que empiece por manual_scaffold del 1 al 9, del 10 al 13 y saltate el 14 incluye el 15 y el 16 eso es lo que coincide con esta lista: regions1=("manual_scaffold_1" "manual_scaffold_2" "manual_scaffold_3" "manual_scaffold_4" "manual_scaffold_5" "manual_scaffold_6" "manual_scaffold_7" "manual_scaffold_8" "manual_scaffold_9" "manual_scaffold_10" "manual_scaffold_11" "manual_scaffold_12" "manual_scaffold_13" "manual_scaffold_15" "manual_scaffold_16")
+   # Luego usa awk para seleccionar los valores de la columna 5 cuyos valores no sean "<*>" y sumalos
+   # Luego dame los totales
 
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
      | awk -F'\t' '$5 != "<*>"' \
