@@ -169,13 +169,12 @@ A) *Hipposideros larvatus*
 
 | **Estimated heterozygosity:**
 
-| H = 12,353,184 / 2,054,062,628 = 0.00601
-
-| HETEROZYGOSITY --> 12353184/2054062628=0.006014025
+| HETEROZYGOSITY = 12,353,184 / 2,054,062,628 = **0.006014025**
 
 
 
-These values can be used to estimate heterozygosity as the proportion of variable sites among all evaluated positions.
+
+
 
 Rhoads A, Au KF. PacBio Sequencing and Its Applications. Genomics Proteomics Bioinformatics. 2015 Oct;13(5):278-89. doi: 10.1016/j.gpb.2015.08.002. Epub 2015 Nov 2. PMID: 26542840; PMCID: PMC4678779.
 
