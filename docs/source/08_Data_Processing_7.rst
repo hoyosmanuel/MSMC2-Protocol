@@ -162,16 +162,16 @@ A) *Hipposideros larvatus*
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
 
-RESULT for 894_pileup_masked.vcf:
+| **RESULT for 894_pileup_masked.vcf:**
 
-Number of variable sites: 12,353,184  
-Total evaluated sites: 2,054,062,628  
+| Number of variable sites: 12,353,184  
+| Total evaluated sites: 2,054,062,628  
 
-Estimated heterozygosity:
+| **Estimated heterozygosity:**
 
-H = 12,353,184 / 2,054,062,628 = 0.00601
+| H = 12,353,184 / 2,054,062,628 = 0.00601
 
-HETEROZYGOSITY --> 12353184/2054062628=0.006014025
+| HETEROZYGOSITY --> 12353184/2054062628=0.006014025
 
 
 
