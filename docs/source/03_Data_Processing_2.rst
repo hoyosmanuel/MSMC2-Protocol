@@ -1,5 +1,5 @@
-Finish the Mappability Masks of the Reference Genomes
-=====================================================
+III. Finish the Mappability Masks of the Reference Genomes
+===========================================================
 
 .. note::
 
