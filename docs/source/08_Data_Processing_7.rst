@@ -285,8 +285,43 @@ C) *Myotis myotis*
 | Total evaluated sites: 679,334,581
 | *Estimated heterozygosity:*
 | H = 5,668,299 / 679,334,581 = **0.0083438988**
+·
 
+**for 488_pileup_masked.vcf:**
 
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 488_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 488_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 7,867,343
+| Total evaluated sites: 680,229,630
+| *Estimated heterozygosity:*
+| H = 7,867,343 / 680,229,630 = **0.01156571641**
+·
+
+**for 489_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 489_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 489_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 9,041,822
+| Total evaluated sites: 681,186,892
+| *Estimated heterozygosity:*
+| H = 9,041,822 / 681,186,892 = **0.01327362887**
+·
 
 
 
