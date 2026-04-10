@@ -173,6 +173,7 @@ A) *Hipposideros larvatus*
 | *Estimated heterozygosity:*
 | H = 4,486,890 / 847,505,239 = **0.00529423275**
 -.-
+
 **for 893_pileup_masked.vcf:**
 
 .. code-block:: bash
