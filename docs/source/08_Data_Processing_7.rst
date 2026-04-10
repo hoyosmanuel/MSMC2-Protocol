@@ -172,7 +172,7 @@ A) *Hipposideros larvatus*
 | Total evaluated sites: 847,505,239
 | *Estimated heterozygosity:*
 | H = 4,486,890 / 847,505,239 = **0.00529423275**
-
+·
 
 **for 893_pileup_masked.vcf:**
 
@@ -189,7 +189,7 @@ A) *Hipposideros larvatus*
 | Total evaluated sites: 846,087,679
 | *Estimated heterozygosity:*
 | H = 4,009,791 / 846,087,679 = **0.0047392145**
-
+·
 
 **for 930_pileup_masked.vcf:**
 
@@ -207,6 +207,7 @@ A) *Hipposideros larvatus*
 | Total evaluated sites: 846,087,679
 | *Estimated heterozygosity:*
 | H = 4,009,791 / 846,087,679 = **0.0047392145**
+·
 
 B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -227,7 +228,7 @@ B) *Molossus molossus*
 | Total evaluated sites: 667,039,993
 | *Estimated heterozygosity:*
 | H = 8,719,790 / 667,039,993 = **0.01307236461**
-
+·
 
 **for 790_pileup_masked.vcf:**
 
@@ -245,7 +246,7 @@ B) *Molossus molossus*
 | Total evaluated sites: 736,604,893
 | *Estimated heterozygosity:*
 | H = 18,232,438 / 736,604,893 = **0.02475199143**
-
+·
 
 **for 792_pileup_masked.vcf:**
 
@@ -263,7 +264,7 @@ B) *Molossus molossus*
 | Total evaluated sites: 000,000,000
 | *Estimated heterozygosity:*
 | H = 00,000,000 / 000,000,000 = **0.000000000**
-
+·
 
 C) *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
