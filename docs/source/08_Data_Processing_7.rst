@@ -1,8 +1,8 @@
 Calculate heterozygosity
 ========================
 
-1) Produce files to calculate Heterozigosity using a ``bcftools mpileup``
---------------------------------------------------------------------------
+1) Generate VCF files for heterozygosity estimation using a ``bcftools mpileup``
+---------------------------------------------------------------------------------
 
 .. note::
 
@@ -162,10 +162,14 @@ A) *Hipposideros larvatus*
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
 
-RESULT:
+RESULT for 894_pileup_masked.vcf:
 
-|  12353184
-|  2054062628
+Number of variable sites: 12,353,184  
+Total evaluated sites: 2,054,062,628  
+
+Estimated heterozygosity:
+
+H = 12,353,184 / 2,054,062,628 = 0.00601
 
 HETEROZYGOSITY --> 12353184/2054062628=0.006014025
 
