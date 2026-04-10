@@ -387,10 +387,102 @@ C) *Myotis myotis*
 | *Estimated heterozygosity:*
 | H = 9,041,822 / 681,186,892 = **0.01327362887**
 
-.
 
 D) *Phyllostomus discolor*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**for 443_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 443_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 443_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 0,000,000
+| Total evaluated sites: 000,000,000
+| *Estimated heterozygosity:*
+| H = 0,000,000 / 000,000,000 = **0.0**
+.
+
+**for 055_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 055_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 055_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 8,042,193
+| Total evaluated sites: 799,419,642
+| *Estimated heterozygosity:*
+| H = 8,042,193 / 799,419,642 = **0.01006003928**
+.
+
+**for 067_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 067_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 067_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 8,443,448
+| Total evaluated sites: 806,837,968
+| *Estimated heterozygosity:*
+| H = 8,443,448 / 806,837,968 = **0.01046486201**
+.
+
+**for 100_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 100_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 100_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 8,489,860
+| Total evaluated sites: 807,059,310
+| *Estimated heterozygosity:*
+| H = 8,489,860 / 807,059,310 = **0.010519499491**
+.
+
+**for 112_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 112_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_([1-8]|1[0-5])\b' 112_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 7,310,576
+| Total evaluated sites: 786,454,053
+| *Estimated heterozygosity:*
+| H = 7,310,576 / 786,454,053 = **0.00929561742**
+.
+
+
+
 
 E) *Pipistrellus kuhlii*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
