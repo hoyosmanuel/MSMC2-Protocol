@@ -198,6 +198,7 @@ A) *Hipposideros larvatus*
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 930_pileup_masked.vcf \
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
+
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 930_pileup_masked.vcf \
      | wc -l
 
