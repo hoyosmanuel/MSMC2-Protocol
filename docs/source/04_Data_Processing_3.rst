@@ -1,4 +1,4 @@
-Map the samples to the Reference Genomes
+IV. Map the samples to the Reference Genomes
 ===============================================
 
 1) MAP the PACBIO reads first
