@@ -150,19 +150,14 @@ Calculate heterozygosity
 
 .. note::
 
-   Bueno entonces el comando anterior nos produce un VCF file y ese VCF contiene la informacion que necesitamos pero hay pulirlo porque voy a ser sincero y transparente contigo la función -r no me recorrió los scaffolds que pensaba y sacó las variantes para todos los scaffolds. no sé porque pasó eso pero podemos arreglarlo con el comando grep especificando que scaffolds vamos a operar.
-
-https://en.wikipedia.org/wiki/Variant_Call_Format
+   In the previous implementation, scaffold restriction using the `-r` argument was not correctly applied, leading to the inclusion of unintended scaffolds in the output VCF. To resolve this, an additional filtering step is introduced to restrict the analysis to the predefined set of autosomal scaffolds by applying the command `grep`.
 
 A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   # Usa el comando grep para encontrar todo lo que empiece por manual_scaffold del 1 al 9, del 10 al 13 y saltate el 14 incluye el 15 y el 16 eso es lo que coincide con esta lista: regions1=("manual_scaffold_1" "manual_scaffold_2" "manual_scaffold_3" "manual_scaffold_4" "manual_scaffold_5" "manual_scaffold_6" "manual_scaffold_7" "manual_scaffold_8" "manual_scaffold_9" "manual_scaffold_10" "manual_scaffold_11" "manual_scaffold_12" "manual_scaffold_13" "manual_scaffold_15" "manual_scaffold_16")
-   # Luego usa awk para seleccionar los valores de la columna 5 cuyos valores no sean "<*>" y sumalos
-   # Luego dame los totales
-
+   # The first command counts sites with an alternative allele different from `<*>`, and the second counts all evaluated sites in the retained autosomal scaffolds. 
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
@@ -176,4 +171,9 @@ A) *Hipposideros larvatus*
 
 
 
+
+These values can be used to estimate heterozygosity as the proportion of variable sites among all evaluated positions.
+
 Rhoads A, Au KF. PacBio Sequencing and Its Applications. Genomics Proteomics Bioinformatics. 2015 Oct;13(5):278-89. doi: 10.1016/j.gpb.2015.08.002. Epub 2015 Nov 2. PMID: 26542840; PMCID: PMC4678779.
+
+https://en.wikipedia.org/wiki/Variant_Call_Format
