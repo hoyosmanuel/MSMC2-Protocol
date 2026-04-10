@@ -103,7 +103,6 @@ A) *Hipposideros larvatus*
    # Bamcaller
    TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-master/bamCaller.py"
    
-   
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
@@ -114,15 +113,12 @@ A) *Hipposideros larvatus*
    # Depth 930
    DEPTH930=13.0935
    
-   
-   
    # BAM894
    BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
    # BAM893
    BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
    # BAM930
    BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
-   
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM893 | \
@@ -132,14 +128,12 @@ A) *Hipposideros larvatus*
    gzip -c  >  output_sample_893/out.$region.vcf.gz
    done
    
- 
 .. code-block:: bash
 
    nano hLar_bamcaller2.sh
 
 .. code-block:: bash
 
-   
    #!/bin/bash
    #SBATCH --job-name=mpileup2
    #SBATCH --output=%x.%j.out
@@ -162,7 +156,6 @@ A) *Hipposideros larvatus*
    # Bamcaller
    TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-master/bamCaller.py"
    
-   
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
@@ -173,15 +166,12 @@ A) *Hipposideros larvatus*
    # Depth 930
    DEPTH930=13.0935
    
-   
-   
    # BAM894
    BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
    # BAM893
    BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
    # BAM930
    BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
-   
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM894 | \
@@ -190,15 +180,12 @@ A) *Hipposideros larvatus*
    python $TOOL $DEPTH894 masks2/sample_894/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_894/out.$region.vcf.gz
    done
-   
-   
  
 .. code-block:: bash
 
    nano hLar_bamcaller3.sh
 
 .. code-block:: bash
-
    
    #!/bin/bash
    #SBATCH --job-name=mpileup3
@@ -222,7 +209,6 @@ A) *Hipposideros larvatus*
    # Bamcaller
    TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/msmc-tools-master/bamCaller.py"
    
-   
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
@@ -233,15 +219,12 @@ A) *Hipposideros larvatus*
    # Depth 930
    DEPTH930=13.0935
    
-   
-   
    # BAM894
    BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
    # BAM893
    BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
    # BAM930
    BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
-   
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM930 | \
