@@ -11,10 +11,14 @@ source_suffix = {
 
 html_theme = "sphinx_rtd_theme"
 
+html_theme_options = {
+    "vcs_pageview_mode": "edit",
+}
+
 html_context = {
     "display_github": True,
     "github_user": "hoyosmanuel",
     "github_repo": "MSMC2-Protocol",
     "github_version": "main",
-    "conf_py_path": "/docs/",
+    "conf_py_path": "/docs/source/",
 }
