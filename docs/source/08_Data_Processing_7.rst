@@ -230,9 +230,9 @@ B) *Molossus molossus*
 | *Estimated heterozygosity:*
 | H = 8,719,790 / 667,039,993 = **0.01307236461**
 
-**for 790_pileup_masked.vcf:**
-
 .
+
+**for 790_pileup_masked.vcf:**
 
 .. code-block:: bash
 
@@ -486,8 +486,137 @@ D) *Phyllostomus discolor*
 E) *Pipistrellus kuhlii*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+**for 706_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 706_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 706_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 14,748,864
+| Total evaluated sites: 613,441,502
+| *Estimated heterozygosity:*
+| H = 14,748,864 / 613,441,502 = **0.02404282063**
+
+.
+
+**for 991_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 991_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 991_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 0,000,000
+| Total evaluated sites: 000,000,000
+| *Estimated heterozygosity:*
+| H = 0,000,000 / 000,000,000 = **0.0**
+
+.
+
+**for 992_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 992_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m20_p_([1-9]|1[0-5]|1[7-9]|2[0-1])\b' 992_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 0,000,000
+| Total evaluated sites: 000,000,000
+| *Estimated heterozygosity:*
+| H = 0,000,000 / 000,000,000 = **0.0**
+
 F) *Rhinolophus ferrumequinum*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**for 490_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 490_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 490_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 658
+| Total evaluated sites: 873,043,597
+| *Estimated heterozygosity:*
+| H = 658 / 873,043,597 = **7.53685156E-7**
+
+.
+
+**for 081_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 081_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 081_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 7,590,386
+| Total evaluated sites: 886,215,379
+| *Estimated heterozygosity:*
+| H = 7,590,386 / 886,215,379 = **0.00856494502**
+
+.
+
+**for 794_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 794_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 794_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 11,485,113  heterozygosity
+| Total evaluated sites: 856,139,484
+| *Estimated heterozygosity:*
+| H = 11,485,113 / 856,139,484 = **0.01341500212**
+
+.
+
+**for 361_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 361_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m29_p_([1-9]|1[0-9]|2[0-8])\b' 361_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 5,577,857
+| Total evaluated sites: 885,212,217
+| *Estimated heterozygosity:*
+| H = 5,577,857 / 885,212,217 = **0.0063011523**
 
 G) *Rousettus aegyptiacus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
