@@ -1,5 +1,5 @@
-Disclaimer
-==========
+0. Disclaimer
+=============
 
 .. note::
 
