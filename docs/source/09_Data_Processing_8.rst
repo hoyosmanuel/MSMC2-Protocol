@@ -220,6 +220,8 @@ A) *Hipposideros larvatus*
 B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+**Sample 789**
+
 .. code-block:: bash
 
    nano mMol_bamcaller1.sh
@@ -265,6 +267,8 @@ B) *Molossus molossus*
    gzip -c  >  output_sample_789/out.$region.vcf.gz
    done
    
+**Sample 790**
+
 .. code-block:: bash
 
    nano mMol_bamcaller2.sh
@@ -309,7 +313,9 @@ B) *Molossus molossus*
    python $TOOL $DEPTH790 masks2/sample_790/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_790/out.$region.vcf.gz
    done
-    
+
+**Sample 792**
+
 .. code-block:: bash
 
    nano mMol_bamcaller3.sh
@@ -358,6 +364,8 @@ B) *Molossus molossus*
 C) *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+**Sample 039**
+
 .. code-block:: bash
 
    nano mMyo_bamcaller1.sh
@@ -403,6 +411,8 @@ C) *Myotis myotis*
    gzip -c  >  output_sample_039/out.$region.vcf.gz
    done
 
+**Sample 040**
+
 .. code-block:: bash
 
    nano mMyo_bamcaller2.sh
@@ -434,31 +444,11 @@ C) *Myotis myotis*
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
-   # Depth 039
-   DEPTH039=4.62979
    # Depth 040
    DEPTH040=28.6231
-   # Depth 041
-   DEPTH041=32.4736
-   # Depth 487
-   DEPTH487=14.5317
-   # Depth 488
-   DEPTH488=18.5191
-   # Depth 489
-   DEPTH489=46.3561
-   
-   # BAM039
-   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+
    # BAM040
    BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
-   # BAM041
-   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
-   # BAM487
-   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
-   # BAM488
-   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
-   # BAM489
-   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM040 | \
@@ -467,6 +457,8 @@ C) *Myotis myotis*
    python $TOOL $DEPTH040 masks2/sample_040/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_040/out.$region.vcf.gz
    done
+
+**Sample 041**
 
 .. code-block:: bash
 
@@ -499,31 +491,11 @@ C) *Myotis myotis*
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
-   # Depth 039
-   DEPTH039=4.62979
-   # Depth 040
-   DEPTH040=28.6231
    # Depth 041
    DEPTH041=32.4736
-   # Depth 487
-   DEPTH487=14.5317
-   # Depth 488
-   DEPTH488=18.5191
-   # Depth 489
-   DEPTH489=46.3561
-   
-   # BAM039
-   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
-   # BAM040
-   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+    
    # BAM041
    BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
-   # BAM487
-   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
-   # BAM488
-   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
-   # BAM489
-   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM041 | \
@@ -532,6 +504,8 @@ C) *Myotis myotis*
    python $TOOL $DEPTH041 masks2/sample_041/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_041/out.$region.vcf.gz
    done
+
+**Sample 487**
 
 .. code-block:: bash
 
@@ -564,31 +538,11 @@ C) *Myotis myotis*
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
-   # Depth 039
-   DEPTH039=4.62979
-   # Depth 040
-   DEPTH040=28.6231
-   # Depth 041
-   DEPTH041=32.4736
    # Depth 487
    DEPTH487=14.5317
-   # Depth 488
-   DEPTH488=18.5191
-   # Depth 489
-   DEPTH489=46.3561
-   
-   # BAM039
-   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
-   # BAM040
-   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
-   # BAM041
-   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+
    # BAM487
    BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
-   # BAM488
-   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
-   # BAM489
-   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM487 | \
@@ -597,6 +551,8 @@ C) *Myotis myotis*
    python $TOOL $DEPTH487 masks2/sample_487/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_487/out.$region.vcf.gz
    done
+
+**Sample 488**
 
 .. code-block:: bash
 
@@ -628,32 +584,12 @@ C) *Myotis myotis*
    
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
-   
-   # Depth 039
-   DEPTH039=4.62979
-   # Depth 040
-   DEPTH040=28.6231
-   # Depth 041
-   DEPTH041=32.4736
-   # Depth 487
-   DEPTH487=14.5317
+
    # Depth 488
    DEPTH488=18.5191
-   # Depth 489
-   DEPTH489=46.3561
-   
-   # BAM039
-   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
-   # BAM040
-   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
-   # BAM041
-   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
-   # BAM487
-   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+
    # BAM488
    BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
-   # BAM489
-   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
       
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM488 | \
@@ -662,6 +598,8 @@ C) *Myotis myotis*
    python $TOOL $DEPTH488 masks2/sample_488/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_488/out.$region.vcf.gz
    done
+
+**Sample 489**
 
 .. code-block:: bash
 
@@ -693,30 +631,10 @@ C) *Myotis myotis*
    
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
-   
-   # Depth 039
-   DEPTH039=4.62979
-   # Depth 040
-   DEPTH040=28.6231
-   # Depth 041
-   DEPTH041=32.4736
-   # Depth 487
-   DEPTH487=14.5317
-   # Depth 488
-   DEPTH488=18.5191
+
    # Depth 489
    DEPTH489=46.3561
-   
-   # BAM039
-   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
-   # BAM040
-   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
-   # BAM041
-   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
-   # BAM487
-   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
-   # BAM488
-   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+
    # BAM489
    BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
    
