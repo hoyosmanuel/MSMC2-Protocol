@@ -191,6 +191,8 @@ A) *Hipposideros larvatus*
 | *Estimated heterozygosity:*
 | H = 4,009,791 / 846,087,679 = **0.0047392145**
 
+.
+
 **for 930_pileup_masked.vcf:**
 
 .. code-block:: bash
@@ -207,6 +209,8 @@ A) *Hipposideros larvatus*
 | Total evaluated sites: 847,496,149
 | *Estimated heterozygosity:*
 | H = 1,182,931 / 847,496,149 = **0.00139579513**
+
+.
 
 B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -228,6 +232,8 @@ B) *Molossus molossus*
 | *Estimated heterozygosity:*
 | H = 8,719,790 / 667,039,993 = **0.01307236461**
 
+.
+
 **for 790_pileup_masked.vcf:**
 
 .. code-block:: bash
@@ -245,6 +251,8 @@ B) *Molossus molossus*
 | *Estimated heterozygosity:*
 | H = 18,232,438 / 736,604,893 = **0.02475199143**
 
+.
+
 **for 792_pileup_masked.vcf:**
 
 .. code-block:: bash
@@ -261,6 +269,8 @@ B) *Molossus molossus*
 | Total evaluated sites: 000,000,000
 | *Estimated heterozygosity:*
 | H = 00,000,000 / 000,000,000 = **0.000000000**
+
+.
 
 C) *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -282,6 +292,8 @@ C) *Myotis myotis*
 | *Estimated heterozygosity:*
 | H = 284 / 665,360,397 = **0.00000426836**
 
+.
+
 **for 040_pileup_masked.vcf:**
 
 .. code-block:: bash
@@ -298,6 +310,8 @@ C) *Myotis myotis*
 | Total evaluated sites: 682,583,744
 | *Estimated heterozygosity:*
 | H = 4,683 / 682,583,744 = **0.00000686069**
+
+.
 
 **for 041_pileup_masked.vcf:**
 
@@ -316,6 +330,7 @@ C) *Myotis myotis*
 | *Estimated heterozygosity:*
 | H = 6,071 / 682,583,230 = **0.00000889415**
 
+.
 
 **for 487_pileup_masked.vcf:**
 
@@ -334,6 +349,8 @@ C) *Myotis myotis*
 | *Estimated heterozygosity:*
 | H = 5,668,299 / 679,334,581 = **0.0083438988**
 
+.
+
 **for 488_pileup_masked.vcf:**
 
 .. code-block:: bash
@@ -350,6 +367,8 @@ C) *Myotis myotis*
 | Total evaluated sites: 680,229,630
 | *Estimated heterozygosity:*
 | H = 7,867,343 / 680,229,630 = **0.01156571641**
+
+.
 
 **for 489_pileup_masked.vcf:**
 
@@ -368,7 +387,7 @@ C) *Myotis myotis*
 | *Estimated heterozygosity:*
 | H = 9,041,822 / 681,186,892 = **0.01327362887**
 
-
+.
 
 D) *Phyllostomus discolor*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
