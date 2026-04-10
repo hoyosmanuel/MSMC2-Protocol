@@ -106,19 +106,11 @@ A) *Hipposideros larvatus*
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
    
-   # Depth 894
-   DEPTH894=13.293
    # Depth 893
    DEPTH893=10.544
-   # Depth 930
-   DEPTH930=13.0935
    
-   # BAM894
-   BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
    # BAM893
    BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
-   # BAM930
-   BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM893 | \
@@ -161,17 +153,9 @@ A) *Hipposideros larvatus*
    
    # Depth 894
    DEPTH894=13.293
-   # Depth 893
-   DEPTH893=10.544
-   # Depth 930
-   DEPTH930=13.0935
    
    # BAM894
    BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
-   # BAM893
-   BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
-   # BAM930
-   BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM894 | \
@@ -211,18 +195,10 @@ A) *Hipposideros larvatus*
    
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
-   
-   # Depth 894
-   DEPTH894=13.293
-   # Depth 893
-   DEPTH893=10.544
+
    # Depth 930
    DEPTH930=13.0935
-   
-   # BAM894
-   BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
-   # BAM893
-   BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"  
+
    # BAM930
    BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"  
    
@@ -233,7 +209,6 @@ A) *Hipposideros larvatus*
    python $TOOL $DEPTH930 masks2/sample_930/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_930/out.$region.vcf.gz
    done
-
 
 
 B) *Molossus molossus*
@@ -272,17 +247,9 @@ B) *Molossus molossus*
    
    # Depth 789
    DEPTH789=22.418
-   # Depth 790
-   DEPTH790=24.9835
-   # Depth 792
-   DEPTH792=41.6384
    
    # BAM789
-   BAM789="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747789.sorted.bam"
-   # BAM790
-   BAM790="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747790.sorted.bam"  
-   # BAM792
-   BAM792="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747792.sorted.bam"  
+   BAM789="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747789.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM789 | \
@@ -322,20 +289,12 @@ B) *Molossus molossus*
    
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
-   
-   # Depth 789
-   DEPTH789=22.418
+
    # Depth 790
    DEPTH790=24.9835
-   # Depth 792
-   DEPTH792=41.6384
-   
-   # BAM789
-   BAM789="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747789.sorted.bam"
+
    # BAM790
    BAM790="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747790.sorted.bam"  
-   # BAM792
-   BAM792="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747792.sorted.bam"  
    
    for region in "${regions[@]}"; do
    OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM790 | \
@@ -375,18 +334,10 @@ B) *Molossus molossus*
    
    # Options for samtools mpileup
    options="-B -q 20 -Q 20 -C 50"
-   
-   # Depth 789
-   DEPTH789=22.418
-   # Depth 790
-   DEPTH790=24.9835
+
    # Depth 792
    DEPTH792=41.6384
-   
-   # BAM789
-   BAM789="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747789.sorted.bam"
-   # BAM790
-   BAM790="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747790.sorted.bam"  
+
    # BAM792
    BAM792="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747792.sorted.bam"  
    
