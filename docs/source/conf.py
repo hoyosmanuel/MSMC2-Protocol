@@ -16,4 +16,5 @@ html_context = {
     "github_user": "hoyosmanuel",
     "github_repo": "MSMC2-Protocol",
     "github_version": "main",
+    "conf_py_path": "/docs/",
 }
