@@ -397,3 +397,806 @@ B) *Molossus molossus*
    python $TOOL $DEPTH792 masks2/sample_792/$region.mask.bed.gz                  | \
    gzip -c  >  output_sample_792/out.$region.vcf.gz
    done
+
+C) *Myotis myotis*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller1.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpileup7
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM039 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH039 masks2/sample_039/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_039/out.$region.vcf.gz
+   done
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller2.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpileup8
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM040 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH040 masks2/sample_040/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_040/out.$region.vcf.gz
+   done
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller3.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpileup9
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM041 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH041 masks2/sample_041/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_041/out.$region.vcf.gz
+   done
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller4.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpilup10
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM487 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH487 masks2/sample_487/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_487/out.$region.vcf.gz
+   done
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller5.sh
+
+.. code-block:: bash
+   
+   #!/bin/bash
+   #SBATCH --job-name=mpilup11
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+      
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM488 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH488 masks2/sample_488/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_488/out.$region.vcf.gz
+   done
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller6.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpilup12
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM489 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH489 masks2/sample_489/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_489/out.$region.vcf.gz
+   done
+
+=======
+REPEART
+=======
+
+.. code-block:: bash
+
+   nano mMyo_bamcaller7.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpileup7
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM039 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH039 masks2/sample_039/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_039/out.$region.vcf.gz
+   done
+ 
+.. code-block:: bash
+
+   nano mMyo_bamcaller8.sh
+
+.. code-block:: bash
+
+   #!/bin/bash
+   #SBATCH --job-name=mpileup8
+   #SBATCH --output=%x.%j.out
+   #SBATCH --error=%x.%j.err
+   #SBATCH --partition=nocona
+   #SBATCH --nodes=1
+   #SBATCH --ntasks=64
+   
+   cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+   
+   . /home/mhoyosro/conda/etc/profile.d/conda.sh
+   conda activate alineador
+   
+   # List of values of the argument -r
+   regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+   
+   # Route to the reference file
+   reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+   
+   # Bamcaller
+   TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+   
+   # Options for samtools mpileup
+   options="-B -q 20 -Q 20 -C 50"
+   
+   # Depth 039
+   DEPTH039=4.62979
+   # Depth 040
+   DEPTH040=28.6231
+   # Depth 041
+   DEPTH041=32.4736
+   # Depth 487
+   DEPTH487=14.5317
+   # Depth 488
+   DEPTH488=18.5191
+   # Depth 489
+   DEPTH489=46.3561
+   
+   # BAM039
+   BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+   # BAM040
+   BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+   # BAM041
+   BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+   # BAM487
+   BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+   # BAM488
+   BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+   # BAM489
+   BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+   
+   for region in "${regions[@]}"; do
+   OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM040 | \
+   OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+   OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+   python $TOOL $DEPTH040 masks2/sample_040/$region.mask.bed.gz                  | \
+   gzip -c  >  output_sample_040/out.$region.vcf.gz
+   done
+
+
+nano bamcaller9.sh
+
+#!/bin/bash
+#SBATCH --job-name=mpileup9
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+
+. /home/mhoyosro/conda/etc/profile.d/conda.sh
+conda activate alineador
+
+# List of values of the argument -r
+regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+
+# Route to the reference file
+reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+
+# Bamcaller
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+
+
+# Options for samtools mpileup
+options="-B -q 20 -Q 20 -C 50"
+
+# Depth 039
+DEPTH039=4.62979
+# Depth 040
+DEPTH040=28.6231
+# Depth 041
+DEPTH041=32.4736
+# Depth 487
+DEPTH487=14.5317
+# Depth 488
+DEPTH488=18.5191
+# Depth 489
+DEPTH489=46.3561
+
+
+
+# BAM039
+BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+# BAM040
+BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+# BAM041
+BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+# BAM487
+BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+# BAM488
+BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+# BAM489
+BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+
+
+
+for region in "${regions[@]}"; do
+OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM041 | \
+OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+python $TOOL $DEPTH041 masks2/sample_041/$region.mask.bed.gz                  | \
+gzip -c  >  output_sample_041/out.$region.vcf.gz
+done
+
+
+
+
+nano bamcaller10.sh
+
+#!/bin/bash
+#SBATCH --job-name=mpilup10
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+
+. /home/mhoyosro/conda/etc/profile.d/conda.sh
+conda activate alineador
+
+# List of values of the argument -r
+regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+
+# Route to the reference file
+reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+
+# Bamcaller
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+
+
+# Options for samtools mpileup
+options="-B -q 20 -Q 20 -C 50"
+
+# Depth 039
+DEPTH039=4.62979
+# Depth 040
+DEPTH040=28.6231
+# Depth 041
+DEPTH041=32.4736
+# Depth 487
+DEPTH487=14.5317
+# Depth 488
+DEPTH488=18.5191
+# Depth 489
+DEPTH489=46.3561
+
+
+
+# BAM039
+BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+# BAM040
+BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+# BAM041
+BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+# BAM487
+BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+# BAM488
+BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+# BAM489
+BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+
+
+
+for region in "${regions[@]}"; do
+OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM487 | \
+OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+python $TOOL $DEPTH487 masks2/sample_487/$region.mask.bed.gz                  | \
+gzip -c  >  output_sample_487/out.$region.vcf.gz
+done
+
+
+
+
+nano bamcaller11.sh
+
+#!/bin/bash
+#SBATCH --job-name=mpilup11
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+
+. /home/mhoyosro/conda/etc/profile.d/conda.sh
+conda activate alineador
+
+# List of values of the argument -r
+regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+
+# Route to the reference file
+reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+
+# Bamcaller
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+
+
+# Options for samtools mpileup
+options="-B -q 20 -Q 20 -C 50"
+
+# Depth 039
+DEPTH039=4.62979
+# Depth 040
+DEPTH040=28.6231
+# Depth 041
+DEPTH041=32.4736
+# Depth 487
+DEPTH487=14.5317
+# Depth 488
+DEPTH488=18.5191
+# Depth 489
+DEPTH489=46.3561
+
+
+
+# BAM039
+BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+# BAM040
+BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+# BAM041
+BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+# BAM487
+BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+# BAM488
+BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+# BAM489
+BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+
+
+
+for region in "${regions[@]}"; do
+OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM488 | \
+OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+python $TOOL $DEPTH488 masks2/sample_488/$region.mask.bed.gz                  | \
+gzip -c  >  output_sample_488/out.$region.vcf.gz
+done
+
+
+
+
+
+
+nano bamcaller12.sh
+
+#!/bin/bash
+#SBATCH --job-name=mpilup12
+#SBATCH --output=%x.%j.out
+#SBATCH --error=%x.%j.err
+#SBATCH --partition=nocona
+#SBATCH --nodes=1
+#SBATCH --ntasks=64
+
+cd /lustre/scratch/mhoyosro/project1/MSMC2/mMyo
+
+. /home/mhoyosro/conda/etc/profile.d/conda.sh
+conda activate alineador
+
+# List of values of the argument -r
+regions=("scaffold_m19_p_1" "scaffold_m19_p_2" "scaffold_m19_p_3" "scaffold_m19_p_5" "scaffold_m19_p_6" "scaffold_m19_p_7" "scaffold_m19_p_8" "scaffold_m19_p_9" "scaffold_m19_p_10" "scaffold_m19_p_11" "scaffold_m19_p_12" "scaffold_m19_p_13" "scaffold_m19_p_14" "scaffold_m19_p_15" "scaffold_m19_p_16" "scaffold_m19_p_17" "scaffold_m19_p_18" "scaffold_m19_p_19" "scaffold_m19_p_20" "scaffold_m19_p_21")
+
+# Route to the reference file
+reference="/lustre/scratch/mhoyosro/project1/GENOMES/mMyoMyo1.6.pri.fa"
+
+# Bamcaller
+TOOL="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/msmc-tools-master/bamCaller.py"
+
+
+# Options for samtools mpileup
+options="-B -q 20 -Q 20 -C 50"
+
+# Depth 039
+DEPTH039=4.62979
+# Depth 040
+DEPTH040=28.6231
+# Depth 041
+DEPTH041=32.4736
+# Depth 487
+DEPTH487=14.5317
+# Depth 488
+DEPTH488=18.5191
+# Depth 489
+DEPTH489=46.3561
+
+
+
+# BAM039
+BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
+# BAM040
+BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"  
+# BAM041
+BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"  
+# BAM487
+BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
+# BAM488
+BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"  
+# BAM489
+BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"  
+
+
+
+for region in "${regions[@]}"; do
+OMP_NUM_THREADS=64 bcftools mpileup $options -r $region -f $reference $BAM489 | \
+OMP_NUM_THREADS=64 bcftools call -c -V indels                                 | \
+OMP_NUM_THREADS=64 bcftools view -i 'INFO/DP>10'                              | \
+python $TOOL $DEPTH489 masks2/sample_489/$region.mask.bed.gz                  | \
+gzip -c  >  output_sample_489/out.$region.vcf.gz
+done
