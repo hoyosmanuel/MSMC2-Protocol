@@ -11,3 +11,59 @@ MPILEUP
 
 1) Create directories for the workflow
 --------------------------------------
+
+The directory structure is as follows.
+
+.. code-block:: bash
+
+   /lustre/scratch/mhoyosro/project1/MSMC2
+   │
+   ├── hLar
+   │   └── mask_2
+   │       ├── sample_893
+   │       ├── sample_894
+   │       └── sample_930
+   │
+   ├── mMol
+   │   └── mask_2
+   │       ├── sample_789
+   │       ├── sample_790
+   │       └── sample_792
+   │
+   ├── mMyo
+   │   └── mask_2
+   │       ├── sample_039
+   │       ├── sample_040
+   │       ├── sample_041
+   │       ├── sample_487
+   │       ├── sample_488
+   │       └── sample_489
+   │
+   ├── pDis
+   │   └── mask_2
+   │       ├── sample_055
+   │       ├── sample_067
+   │       ├── sample_100
+   │       ├── sample_112
+   │       └── sample_443
+   │
+   ├── pKuh
+   │   └── mask_2
+   │       ├── sample_706
+   │       ├── sample_991
+   │       └── sample_992
+   │
+   ├── rFer
+   │   └── mask_2
+   │       ├── sample_081
+   │       ├── sample_361
+   │       ├── sample_490
+   │       └── sample_794
+   │
+   └── rAeg
+       └── mask_2
+           ├── sample_195
+           ├── sample_636
+           └── sample_819
+   
+   
