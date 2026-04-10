@@ -202,24 +202,67 @@ A) *Hipposideros larvatus*
      | wc -l
 
 | *RESULT:*
-| Number of variable sites: 4,009,791 
+| Number of variable sites: 1,182,931
 | Total evaluated sites: 846,087,679
 | *Estimated heterozygosity:*
 | H = 4,009,791 / 846,087,679 = **0.0047392145**
 
-
-
-
-
-
-
-
-
-
-
-
 B) *Molossus molossus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**for 789_pileup_masked.vcf:**
+
+.. code-block:: bash
+
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 789_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 789_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 8,719,790
+| Total evaluated sites: 667,039,993
+| *Estimated heterozygosity:*
+| H = 8,719,790 / 667,039,993 = **0.01307236461**
+
+
+**for 790_pileup_masked.vcf:**
+
+.. code-block:: bash
+
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 790_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 790_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 18,232,438
+| Total evaluated sites: 736,604,893
+| *Estimated heterozygosity:*
+| H = 18,232,438 / 736,604,893 = **0.02475199143**
+
+
+**for 792_pileup_masked.vcf:**
+
+.. code-block:: bash
+
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 792_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m16_p_([3-9]|1[0-9]|2[0-4])\b' 792_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 00,000,000
+| Total evaluated sites: 000,000,000
+| *Estimated heterozygosity:*
+| H = 00,000,000 / 000,000,000 = **0.000000000**
+
 
 C) *Myotis myotis*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
