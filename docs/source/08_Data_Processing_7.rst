@@ -167,7 +167,7 @@ A) *Hipposideros larvatus*
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_masked.vcf \
      | wc -l
 
-| **RESULT for 894_pileup_masked.vcf:**
+| *RESULT*
 | Number of variable sites: 4,486,890  
 | Total evaluated sites: 847,505,239
 | **Estimated heterozygosity:**
@@ -184,7 +184,7 @@ A) *Hipposideros larvatus*
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 893_pileup_masked.vcf \
      | wc -l
 
-| **RESULT for 893_pileup_masked.vcf:**
+| *RESULT*
 | Number of variable sites: 4,009,791 
 | Total evaluated sites: 846,087,679
 | **Estimated heterozygosity:**
@@ -201,7 +201,7 @@ A) *Hipposideros larvatus*
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 930_pileup_masked.vcf \
      | wc -l
 
-| **RESULT for 930_pileup_masked.vcf:**
+| *RESULT*
 | Number of variable sites: 4,009,791 
 | Total evaluated sites: 846,087,679
 | **Estimated heterozygosity:**
