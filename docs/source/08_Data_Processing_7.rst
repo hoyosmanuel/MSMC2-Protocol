@@ -155,6 +155,8 @@ Calculate heterozygosity
 A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+**for 894_pileup_masked.vcf:**
+
 .. code-block:: bash
 
    # The first command counts sites with an alternative allele different from `<*>`
@@ -162,19 +164,65 @@ A) *Hipposideros larvatus*
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
+   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_masked.vcf \
+     | wc -l
 
 | **RESULT for 894_pileup_masked.vcf:**
 
-| Number of variable sites: 12,353,184  
-| Total evaluated sites: 2,054,062,628  
+| Number of variable sites: 4,486,890  
+| Total evaluated sites: 847,505,239
 
 | **Estimated heterozygosity:**
+| HETEROZYGOSITY = 4,486,890 / 847,505,239 = **0.00529423275**
 
-| HETEROZYGOSITY = 12,353,184 / 2,054,062,628 = **0.006014025**
+**for 893_pileup_masked.vcf:**
+
+.. code-block:: bash
+
+   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 893_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 893_pileup_masked.vcf \
+     | wc -l
+
+| **RESULT for 893_pileup_masked.vcf:**
+
+| Number of variable sites: 4,009,791 
+| Total evaluated sites: 846,087,679
+
+| **Estimated heterozygosity:**
+| HETEROZYGOSITY = 4,009,791 / 846,087,679 = **0.0047392145**
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+B) *Molossus molossus*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+C) *Myotis myotis*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+D) *Phyllostomus discolor*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+E) *Pipistrellus kuhlii*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+F) *Rhinolophus ferrumequinum*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+G) *Rousettus aegyptiacus*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 Rhoads A, Au KF. PacBio Sequencing and Its Applications. Genomics Proteomics Bioinformatics. 2015 Oct;13(5):278-89. doi: 10.1016/j.gpb.2015.08.002. Epub 2015 Nov 2. PMID: 26542840; PMCID: PMC4678779.
