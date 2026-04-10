@@ -621,6 +621,65 @@ F) *Rhinolophus ferrumequinum*
 G) *Rousettus aegyptiacus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+**for 195_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 195_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 195_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 3,838
+| Total evaluated sites: 786,092,960
+| *Estimated heterozygosity:*
+| H = 3,838 / 786,092,960 = **0.00000488237**
+
+.
+
+**for 636_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 636_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 636_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 10,884,477
+| Total evaluated sites: 740,921,392
+| *Estimated heterozygosity:*
+| H = 10,884,477 / 740,921,392 = **0.01469046125**
+
+.
+
+**for 819_pileup_masked.vcf:**
+
+.. code-block:: bash
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 819_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m13_p_([1-8]|1[0-7])\b' 819_pileup_masked.vcf \
+     | wc -l
+
+| *RESULT:*
+| Number of variable sites: 12,672,368
+| Total evaluated sites: 784,232,677
+| *Estimated heterozygosity:*
+| H = 12,672,368 / 784,232,677 = **0.01615893901**
+
+
+
+
+
 
 Rhoads A, Au KF. PacBio Sequencing and Its Applications. Genomics Proteomics Bioinformatics. 2015 Oct;13(5):278-89. doi: 10.1016/j.gpb.2015.08.002. Epub 2015 Nov 2. PMID: 26542840; PMCID: PMC4678779.
 
