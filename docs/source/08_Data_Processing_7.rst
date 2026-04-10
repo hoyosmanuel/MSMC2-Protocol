@@ -171,7 +171,7 @@ A) *Hipposideros larvatus*
 | Number of variable sites: 4,486,890  
 | Total evaluated sites: 847,505,239
 | *Estimated heterozygosity:*
-| HETEROZYGOSITY = 4,486,890 / 847,505,239 = **0.00529423275**
+| H = 4,486,890 / 847,505,239 = **0.00529423275**
 
 
 **for 893_pileup_masked.vcf:**
@@ -188,7 +188,7 @@ A) *Hipposideros larvatus*
 | Number of variable sites: 4,009,791 
 | Total evaluated sites: 846,087,679
 | *Estimated heterozygosity:*
-| HETEROZYGOSITY = 4,009,791 / 846,087,679 = **0.0047392145**
+| H = 4,009,791 / 846,087,679 = **0.0047392145**
 
 
 **for 930_pileup_masked.vcf:**
@@ -205,7 +205,7 @@ A) *Hipposideros larvatus*
 | Number of variable sites: 4,009,791 
 | Total evaluated sites: 846,087,679
 | *Estimated heterozygosity:*
-| HETEROZYGOSITY = 4,009,791 / 846,087,679 = **0.0047392145**
+| H = 4,009,791 / 846,087,679 = **0.0047392145**
 
 
 
