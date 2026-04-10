@@ -272,13 +272,13 @@ C) *Myotis myotis*
 **for 487_pileup_masked.vcf:**
 
 .. code-block:: bash
-
-grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 487_pileup_masked.vcf \
-  | awk -F'\t' '$5 != "<*>"' \
-  | wc -l
-
-grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 487_pileup_masked.vcf \
-  | wc -l
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 487_pileup_masked.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+   
+   grep -E '^scaffold_m19_p_(1[0-9]|2[0-1]|[1-3]|[5-9])\b' 487_pileup_masked.vcf \
+     | wc -l
 
 | *RESULT:*
 | Number of variable sites: 5,668,299
