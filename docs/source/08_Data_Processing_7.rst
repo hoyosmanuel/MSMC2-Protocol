@@ -10,7 +10,8 @@ Calculate heterozygosity
 
 .. note::
 
-   For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening.
+   For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening. 
+   Este paso es importante
 
 .. code-block:: bash
 
@@ -32,27 +33,33 @@ Calculate heterozygosity
    BAM894="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695894.sorted.bam"
    BAM893="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23695893.sorted.bam"
    BAM930="/lustre/scratch/mhoyosro/project1/MSMC2/hLar/SRR23683930.sorted.bam"
+
    BAM789="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747789.sorted.bam"
    BAM790="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747790.sorted.bam"
    BAM792="/lustre/scratch/mhoyosro/project1/MSMC2/mMol/SRR11747792.sorted.bam"
+
    BAM039="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650039.sorted.bam"
    BAM040="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650040.sorted.bam"
    BAM041="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR11650041.sorted.bam"
    BAM487="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216487.sorted.bam"
    BAM488="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216488.sorted.bam"
    BAM489="/lustre/scratch/mhoyosro/project1/MSMC2/mMyo/SRR27216489.sorted.bam"
+
    BAM443="/lustre/scratch/mhoyosro/project1/MSMC2/pDis/SRR11788443.sorted.bam"
    BAM055="/lustre/scratch/mhoyosro/project1/MSMC2/pDis/SRR25743055.sorted.bam"
    BAM067="/lustre/scratch/mhoyosro/project1/MSMC2/pDis/SRR25743067.sorted.bam"
    BAM100="/lustre/scratch/mhoyosro/project1/MSMC2/pDis/SRR25743100.sorted.bam"
    BAM112="/lustre/scratch/mhoyosro/project1/MSMC2/pDis/SRR25743112.sorted.bam"
+
    BAM706="/lustre/scratch/mhoyosro/project1/MSMC2/pKuh/SRR11744706.sorted.bam"
    BAM991="/lustre/scratch/mhoyosro/project1/MSMC2/pKuh/SRR11744991.sorted.bam"
    BAM992="/lustre/scratch/mhoyosro/project1/MSMC2/pKuh/SRR11744992.sorted.bam"
+
    BAM490="/lustre/scratch/mhoyosro/project1/MSMC2/rFer/SRR11776490.sorted.bam"
    BAM081="/lustre/scratch/mhoyosro/project1/MSMC2/rFer/SRR11777081.sorted.bam"
    BAM794="/lustre/scratch/mhoyosro/project1/MSMC2/rFer/SRR30056794.sorted.bam"
    BAM361="/lustre/scratch/mhoyosro/project1/MSMC2/rFer/SRR924361.sorted.bam"
+
    BAM195="/lustre/scratch/mhoyosro/project1/MSMC2/rAeg/SRR11773195.sorted.bam"
    BAM636="/lustre/scratch/mhoyosro/project1/MSMC2/rAeg/SRR11773636.sorted.bam"
    BAM819="/lustre/scratch/mhoyosro/project1/MSMC2/rAeg/SRR7637819.sorted.bam"
@@ -137,6 +144,27 @@ Calculate heterozygosity
 2) Calculate Heterozygosity of the positive samples
 ----------------------------------------------------------
 
+.. note::
+
+   Bueno entonces el comando anterior nos produce un VCF file y ese VCF contiene la informacion que necesitamos pero hay pulirlo más para eso le vamos a sacar la informacion que necesitamos 
+
+https://en.wikipedia.org/wiki/Variant_Call_Format
+
+A) *Hipposideros larvatus*
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
+     | awk -F'\t' '$5 != "<*>"' \
+     | wc -l
+
+
+   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
+     | wc -l
+   
+   12353184
+   2054062628
 
 
 
