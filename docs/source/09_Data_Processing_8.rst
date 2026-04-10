@@ -75,6 +75,8 @@ The directory structure is as follows.
 A) *Hipposideros larvatus*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+A.1 Sample
+
 .. code-block:: bash
 
    nano hLar_bamcaller1.sh
