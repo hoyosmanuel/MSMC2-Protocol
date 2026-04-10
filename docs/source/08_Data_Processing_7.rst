@@ -162,12 +162,10 @@ A) *Hipposideros larvatus*
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
 
+RESULT:
 
-   grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
-     | wc -l
-   
-   12353184
-   2054062628
+|  12353184
+|  2054062628
 
 
 
