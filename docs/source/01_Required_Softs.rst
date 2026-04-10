@@ -1,5 +1,5 @@
-Software installation and workspace setup
-=========================================
+I. Software installation and workspace setup
+============================================
 
 
 1) Set up working directories
