@@ -1,10 +1,10 @@
+VI. Detect sex chromosomes
+==========================
+
 .. note::
 
  MSMC methods assume homogeneous recombination and diploid Mendelian inheritance (Mather et al., 2019). Therefore, excluding sex chromosomes (or sex-linked loci located on autosomes) from the main analysis is advisable. Here, we removed these regions prior to analysis. Alternative and potentially more robust approaches may exist; however, the following describes the procedure used in this study.
 
-
-Detect sex chromosomes
-=======================
 
 1. Create a directories for sexual markers
 -----------------------------------------------
