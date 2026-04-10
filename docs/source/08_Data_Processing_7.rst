@@ -6,12 +6,15 @@ Calculate heterozygosity
 
 .. note::
 
-   At this stage, the dataset includes intergenic regions previously intersected with the mappability mask (Directory mask_1), which were used as putatively neutral regions. The karyotypes of the study species are known, and sex-linked scaffolds were identified in a previous step (X markers). Because MSMC assumes approximately homogeneous recombination and diploid Mendelian inheritance, scaffolds corresponding to the X chromosome were excluded from the main analysis. The scaffold number does not necessarily correspond 1:1 with chromosome number in genome assemblies produce with PCBIO, as assemblies may remain fragmented. Therefore, the following scaffold selection was guided by both karyotype information and prior identification of sex-linked regions.
+   At this stage, the dataset includes intergenic regions previously intersected with the mappability mask (mask_1), which were used as putatively neutral regions. The karyotypes of the study species are known, and sex-linked scaffolds were identified in a previous step (X markers). Because MSMC assumes approximately homogeneous recombination and diploid Mendelian inheritance, scaffolds corresponding to the X chromosome were excluded from the main analysis. The scaffold number does not necessarily correspond 1:1 with chromosome number in genome assemblies produce with PACBIO, as assemblies may remain fragmented. Therefore, the following scaffold selection was guided by both karyotype information and prior identification of sex-linked regions.
 
 .. note::
 
-   For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening. 
-   Este paso es importante
+   For clarity, the following code is presented "step by step". However, it is more efficient to run it as an array job; it is broken down here so you can better understand the underlying logic, since using an array may make it harder to follow what is happening. This step is critical and requires careful attention. The `bcftools mpileup` command converts BAM alignments into VCF format.
+
+   The analysis is restricted to:
+   - autosomal scaffolds (`-r`)
+   - neutral callable regions (`-R`)
 
 .. code-block:: bash
 
