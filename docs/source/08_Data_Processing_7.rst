@@ -157,7 +157,8 @@ A) *Hipposideros larvatus*
 
 .. code-block:: bash
 
-   # The first command counts sites with an alternative allele different from `<*>`, and the second counts all evaluated sites in the retained autosomal scaffolds. 
+   # The first command counts sites with an alternative allele different from `<*>`
+   # The second command counts all evaluated sites in the retained autosomal scaffolds. 
    grep -E '^manual_scaffold_(1[0-3]|15|16|[1-9])\b' 894_pileup_H.vcf \
      | awk -F'\t' '$5 != "<*>"' \
      | wc -l
