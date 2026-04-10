@@ -1,5 +1,5 @@
-The Mappability Masks of the Reference Genomes
-===============================================
+II. The Mappability Masks of the Reference Genomes
+===================================================
 
 .. note::
 
